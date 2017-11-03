@@ -1,0 +1,117 @@
+﻿<Window x:Class="RealEstateAgency.WindowChangeEstate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RealEstateAgency"
+        mc:Ignorable="d"
+        Title="WindowChangeEstate" Height="550" Width="500"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="LabelAddEstateName" Content="Наименование" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="1" x:Name="LabelChangeEstateInventoryNumber" Content="Инвентарный номер" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="2" x:Name="LabelChangeEstateSpace" Content="Общая площадь" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="3" x:Name="LabelChangeEstateAdress" Content="Местонахождение" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="4" x:Name="LabelChangeEstateFunction" Content="Назначение" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="5" x:Name="LabelChangeEstateYear" Content="Год постройки" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="6" x:Name="LabelChangeEstateWall" Content="Материал стен" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="7" x:Name="LabelChangeEstateLandLot" Content="Арендатор" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="8" x:Name="LabelChangeEstateOwner" Content="Собственник" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="9" x:Name="LabelChangeEstateRentPrice" Content="Стоимость аренды" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="10" x:Name="LabelChangeEstateCostOfSale" Content="Цена продажи" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="11" x:Name="LabelChangeEstateDeal" Content="Статус объекта" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="12" x:Name="LabelChangeEstateDescription" Content="Краткое описание" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+        <Label Grid.Row="13" x:Name="LabelChangeEstatePhoto" Content="Загрузить фото объекта" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
+
+
+        <ComboBox Grid.Column="1" Name="ComboBoxChangeEstateName" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" 
+                  VerticalAlignment="Top" Width="270" >
+            <ComboBoxItem Content="Капитальное строение"/>
+            <ComboBoxItem Content="Изолированное помещение"/>
+        </ComboBox>
+        <!--SelectedValue="{Binding Path=EstateName}"-->
+        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxChangeEstateInventoryNumber" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                  />
+        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxChangeEstateSpace" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                  />
+        <!--Text="{Binding Path=EstateSpace}"-->
+        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxChangeEstateAdress" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateAdress}"-->
+        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxChangeEstateFunction" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateFunction}"-->
+        <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxChangeEstateYear" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateYear}"-->
+        <TextBox Grid.Row="6" Grid.Column="1" Name="TextBoxChangeEstateWall" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateWall}"-->
+        <TextBox Grid.Row="7" Grid.Column="1" Name="TextBoxChangeEstateLandLot" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateLandLot}"-->
+        <TextBox Grid.Row="8" Grid.Column="1" Name="TextBoxChangeEstateOwner" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateOwner}"-->
+        <TextBox Grid.Row="9" Grid.Column="1" Name="TextBoxChangeEstateRentPrice" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateRentPrice}"-->
+        <TextBox Grid.Row="10" Grid.Column="1" Name="TextBoxChangeEstateCostOfSale" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateCostOfSale}"-->
+        <TextBox Grid.Row="11" Grid.Column="1" Name="TextBoxChangeEstateDeal" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateDeal}"-->
+        <TextBox Grid.Row="12" Grid.Column="1" Name="TextBoxChangeEstateDescription" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstateDescription}"-->
+        <TextBox Grid.Row="13" Grid.Column="1" Name="TextBoxChangeEstatePhoto" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 />
+        <!--Text="{Binding Path=EstatePhoto}"-->
+        <StackPanel  Grid.Row="14" Grid.ColumnSpan="2" Margin="0,0,10,0">
+            <Button  x:Name="ButtonUpdateEstate" Content="Сохранить изменения" HorizontalAlignment="Left" Margin="20,10,0,15" 
+                     VerticalAlignment="Top" Width="160" Click="ButtonUpdateEstate_Click"/>
+            <Button  x:Name="ButtonCancel" Content="Отмена" Margin="205,-35,0,0" VerticalAlignment="Top" Grid.Column="1" 
+                     HorizontalAlignment="Left" Width="75" Click="ButtonCancel_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

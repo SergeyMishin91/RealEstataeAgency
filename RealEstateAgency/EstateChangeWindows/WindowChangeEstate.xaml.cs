@@ -42,11 +42,11 @@ namespace RealEstateAgency
             TextBoxChangeEstateFunction.Text = estate.EstateFunction;
             TextBoxChangeEstateYear.Text = estate.EstateYear.ToString();
             TextBoxChangeEstateWall.Text = estate.EstateWall;
-            TextBoxChangeEstateLandLot.Text = estate.EstateState;
+            ComboBoxChangeEstateState.Text = estate.EstateState;
             TextBoxChangeEstateOwner.Text = estate.EstateOwner;
-            TextBoxChangeEstateRentPrice.Text = estate.EstateRentPrice.ToString();
+            TextBoxChangeEstateBuyer.Text = estate.EstateBuyer.ToString();
             TextBoxChangeEstateCostOfSale.Text = estate.EstateCostOfSale.ToString();
-            TextBoxChangeEstateDeal.Text = estate.EstateDeal;
+            TextBoxChangeEstateContract.Text = estate.EstateContractNumber;
             TextBoxChangeEstateDescription.Text = estate.EstateDescription;
         }
 
@@ -60,12 +60,12 @@ namespace RealEstateAgency
             _updateEstate.EstateFunction = TextBoxChangeEstateFunction.Text;
             _updateEstate.EstateYear = int.Parse(TextBoxChangeEstateYear.Text);
             _updateEstate.EstateWall = TextBoxChangeEstateWall.Text;
-            _updateEstate.EstateState = TextBoxChangeEstateLandLot.Text;
+            _updateEstate.EstateState = ComboBoxChangeEstateState.Text;
             _updateEstate.EstateOwner = TextBoxChangeEstateOwner.Text;
-            _updateEstate.EstateRentPrice = double.Parse(TextBoxChangeEstateRentPrice.Text);
+            _updateEstate.EstateBuyer = TextBoxChangeEstateBuyer.Text;
             _updateEstate.EstateCostOfSale = double.Parse(TextBoxChangeEstateCostOfSale.Text);
             _updateEstate.EstateDescription = TextBoxChangeEstateDescription.Text;
-            _updateEstate.EstateDeal = TextBoxChangeEstateDeal.Text;
+            _updateEstate.EstateContractNumber = TextBoxChangeEstateContract.Text;
 
             estateRepository.UpdateEstate(_updateEstate);
             MessageBox.Show("Изменения внесены.");

@@ -6,7 +6,14 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    class Buyer
+    public class Buyer
     {
+        public int EstateBuyerID { get; set; }
+        public string EstateBuyerName { get; set; }
+        public string EstateBuyerAdress { get; set; }
+        public int EstateBuyerUNP { get; set; }
+        public string EstateBuyerPhone { get; set; }
+        public string EstateBuyerRequest { get; set; }
+        public int ContractOfSaleID { get; set; }
     }
 }

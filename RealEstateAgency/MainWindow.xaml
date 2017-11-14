@@ -59,7 +59,7 @@
             </MenuItem>
         </Menu>
 
-        <TabControl Name="allOptionsTC" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <TabControl Name="allOptionsTC" HorizontalAlignment="Left" VerticalAlignment="Top" Height="520" Width="964">
             <TabItem Header="Недвижимость">
                 <Grid DockPanel.Dock="Left" Background="AliceBlue">
                     <Grid.RowDefinitions>
@@ -80,7 +80,7 @@
                     </ComboBox>
                     <Label Name="estateDescription" Grid.Row="1" Grid.Column="1" Margin="10,1,20,107" Grid.RowSpan="2"/>
 
-                 
+
                     <ListView Name="estateSense" HorizontalAlignment="Left" Height="256" Margin="10,1,0,0" 
                         VerticalAlignment="Top" Width="339" Grid.Row="1" Grid.Column="0" SelectionChanged="estateSense_SelectionChanged">
                         <ListView.View>
@@ -97,7 +97,7 @@
                         </ListView.View>
                     </ListView>
 
-                
+
                     <Label Content="Сортировка объектов" Margin="10,10,200,130" Grid.Row="2" Grid.Column="0" />
                     <ComboBox Margin="160,10,1,140" Grid.Row="2" >
                         <ComboBoxItem Content="по цене"/>
@@ -112,24 +112,83 @@
                     <Button Name="addEstate" Content="Добавить" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="281,130,254,19" Click="addEstate_Click"/>
                     <Button Name="changeEstate" Content="Изменить" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="399,130,136,19" Click="changeEstate_Click"/>
                     <Button Name="deleteEstate" Content="Удалить" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="515,130,20,19" Click="deleteEstate_Click"/>
-                    <RadioButton Content="Аренда" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <RadioButton Content="Продажа" Grid.Column="1" HorizontalAlignment="Left" Margin="82,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.464,0.444"/>
-                    <RadioButton Content="Вся недвижимость" Grid.Column="1" HorizontalAlignment="Left" Margin="164,10,0,0" VerticalAlignment="Top"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Клиенты">
+                <Grid DockPanel.Dock="Left" Background="AliceBlue">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="382*"/>
+                        <ColumnDefinition Width="323*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Продавцы:" Margin="10,10,189,30" Grid.Row="0" Grid.Column="0"/>
+                    <ListBox Name="showOwner" HorizontalAlignment="Left" Height="256" Margin="10,41,0,0" 
+                        VerticalAlignment="Top" Width="264" Grid.Column="0" SelectionChanged="ownerSense_SelectionChanged" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Padding="5,0,5,0" Text="{Binding OwnerName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Label Content="Покупатели:" Margin="10,10,189,30" Grid.Row="0" Grid.Column="1"/>
+                    <ListBox Name="showBuyer" HorizontalAlignment="Left" Height="256" Margin="10,41,0,0" 
+                        VerticalAlignment="Top" Width="277" Grid.Column="1" SelectionChanged="estateSense_SelectionChanged" Grid.RowSpan="3">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Padding="5,0,5,0" Text="{Binding EstateBuyerName}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        
+                    </ListBox>
+
+                    <Button Name="addOwner" Content="Добавить" Grid.Row="2" Grid.Column="1" Margin="160,130,218,14" Click="addEstate_Click"/>
+                    <Button Name="changeOwner" Content="Изменить" Grid.Row="2" Grid.Column="1" Margin="234,130,144,14" Click="changeEstate_Click"/>
+                    <Button Name="deleteOwner" Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="311,130,62,14" Click="deleteEstate_Click"/>
+
+                </Grid>
 
             </TabItem>
             <TabItem Header="Договоры">
-
+                <ListView Name="contractOfSaleSense" HorizontalAlignment="Left" Height="256" Margin="10,1,0,0" 
+                        VerticalAlignment="Top" Width="935" Grid.Row="1" Grid.Column="0" SelectionChanged="estateSense_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Номер договора" Width="100"
+                                        DisplayMemberBinding="{Binding EstateFunction}" />
+                                <GridViewColumn Header="Дата заключения" Width="100"
+                                        DisplayMemberBinding="{Binding EstateFunction}" />
+                                <GridViewColumn Header="Покупатель" Width="100"
+                                        DisplayMemberBinding="{Binding EstateSpace}" />
+                                <GridViewColumn Header="Продавец" Width="100"
+                                        DisplayMemberBinding= "{Binding EstateCostOfSale}" />
+                                <GridViewColumn Header="Цена продажи" Width="100"
+                                        DisplayMemberBinding= "{Binding EstateCostOfSale}" />
+                                <GridViewColumn Header="Объект недвижимости" Width="400"
+                                        DisplayMemberBinding= "{Binding EstateCostOfSale}" />
+                            </GridView.Columns>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </TabItem>
         </TabControl>
 
-        <StatusBar DockPanel.Dock="Bottom" Background="Beige">
+        <!--<StatusBar DockPanel.Dock="Bottom" Background="Beige">
             <StatusBarItem>
                 <TextBlock Name="statBarText" Text="Ready"/>
             </StatusBarItem>
-        </StatusBar>
+        </StatusBar>-->
 
     </DockPanel>
 </Window>

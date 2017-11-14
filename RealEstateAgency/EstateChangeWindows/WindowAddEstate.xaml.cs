@@ -47,12 +47,12 @@ namespace RealEstateAgency
             _newEstate.EstateFunction = TextBoxAddEstateFunction.Text;
             _newEstate.EstateYear = int.Parse(TextBoxAddEstateYear.Text);
             _newEstate.EstateWall = TextBoxAddEstateWall.Text;
-            _newEstate.EstateState = TextBoxAddEstateLandLot.Text;
+            _newEstate.EstateState = "не продан";
             _newEstate.EstateOwner = TextBoxAddEstateOwner.Text;
-            _newEstate.EstateRentPrice = double.Parse(TextBoxAddEstateRentPrice.Text);
-            _newEstate.EstateCostOfSale = double.Parse(TextBoxAddEstateCostOfSale.Text);
+            _newEstate.EstateCostOfSale = double.Parse(null);
             _newEstate.EstateDescription = TextBoxAddEstateDescription.Text;
-            _newEstate.EstateDeal = TextBoxAddEstateDeal.Text;
+            _newEstate.EstateBuyer = "";
+            _newEstate.EstateContractNumber = TextBoxAddEstateOwner.Text;
 
             estateRepository.AddEstate(_newEstate);
 

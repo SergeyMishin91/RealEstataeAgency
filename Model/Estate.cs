@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Model
+﻿namespace Model
 {
     public class Estate
     {
@@ -19,9 +13,9 @@ namespace Model
         public string EstateWall { get; set; }
         public string EstateState { get; set; }
         public string EstateOwner { get; set; }
-        public double EstateRentPrice { get; set; }
         public double EstateCostOfSale { get; set; }
         public string EstateDescription { get; set; }
-        public string EstateDeal { get; set; }
+        public string EstateBuyer { get; set; }
+        public string EstateContractNumber { get; set; }
     }
 }

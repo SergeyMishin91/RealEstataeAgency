@@ -54,10 +54,12 @@ namespace DAL
                                "EstateWall = @EstateWall, " +
                                "EstateState = @EstateState, " +
                                "EstateOwner = @EstateOwner, " +
-                               "EstateRentPrice = @EstateRentPrice, " +
+
                                "EstateCostOfSale =  @EstateCostOfSale, " +
                                "EstateDescription = @EstateDescription, " +
-                               "EstateDeal = @EstateDeal " +
+                               "EstateBuyer =  @EstateBuyer, " +
+                               "EstateContractNumber = @EstateContractNumber, " +
+
                                "WHERE EstateID = @EstateID", connection))
                 {
                     updateCommand.Parameters.Clear();
@@ -71,10 +73,10 @@ namespace DAL
                     updateCommand.Parameters.AddWithValue("@EstateWall", typeof(string)).Value = estate.EstateWall;
                     updateCommand.Parameters.AddWithValue("@EstateState", typeof(string)).Value = estate.EstateState;
                     updateCommand.Parameters.AddWithValue("@EstateOwner", typeof(string)).Value = estate.EstateOwner;
-                    updateCommand.Parameters.AddWithValue("@EstateRentPrice", typeof(string)).Value = estate.EstateRentPrice;
                     updateCommand.Parameters.AddWithValue("@EstateCostOfSale", typeof(string)).Value = estate.EstateCostOfSale;
                     updateCommand.Parameters.AddWithValue("@EstateDescription", typeof(string)).Value = estate.EstateDescription;
-                    updateCommand.Parameters.AddWithValue("@EstateDeal", typeof(string)).Value = estate.EstateDeal;
+                    updateCommand.Parameters.AddWithValue("@EstateBuyer", typeof(string)).Value = estate.EstateBuyer;
+                    updateCommand.Parameters.AddWithValue("@EstateContractNumber", typeof(string)).Value = estate.EstateContractNumber;
                     updateCommand.Parameters.AddWithValue("@EstateID", typeof(string)).Value = estate.EstateID;
 
                     connection.Open();
@@ -91,9 +93,9 @@ namespace DAL
 
                 using (SqlCommand insertCommand = new SqlCommand("Insert Into dbo.Estate" +
                                "(EstateID, EstateName, EstateInventoryNumber, EstateSpace, EstateAdress, EstateFunction, EstateYear, EstateWall," +
-                               "EstateState, EstateOwner, EstateRentPrice, EstateCostOfSale, EstateDescription, EstateDeal) " +
+                               "EstateState, EstateOwner, EstateCostOfSale, EstateDescription, EstateBuyer, EstateContractNumber) " +
                                "Values(@EstateID, @EstateName, @EstateInventoryNumber, @EstateSpace, @EstateAdress,@EstateFunction , @EstateYear, @EstateWall," +
-                               "@EstateState, @EstateOwner, @EstateRentPrice, @EstateCostOfSale, @EstateDescription, @EstateDeal)", connection))
+                               "@EstateState, @EstateOwner, @EstateCostOfSale, @EstateDescription,  @EstateBuyer, @EstateContractNumber)", connection))
                 { 
                   
                     foreach (Estate estates in _estatesObsColl)
@@ -110,10 +112,11 @@ namespace DAL
                         insertCommand.Parameters.AddWithValue("@EstateWall", typeof(string)).Value = estate.EstateWall;
                         insertCommand.Parameters.AddWithValue("@EstateState", typeof(string)).Value = estate.EstateState;
                         insertCommand.Parameters.AddWithValue("@EstateOwner", typeof(string)).Value = estate.EstateOwner;
-                        insertCommand.Parameters.AddWithValue("@EstateRentPrice", typeof(string)).Value = estate.EstateRentPrice;
                         insertCommand.Parameters.AddWithValue("@EstateCostOfSale", typeof(string)).Value = estate.EstateCostOfSale;
                         insertCommand.Parameters.AddWithValue("@EstateDescription", typeof(string)).Value = estate.EstateDescription;
-                        insertCommand.Parameters.AddWithValue("@EstateDeal", typeof(string)).Value = estate.EstateDeal;
+                        insertCommand.Parameters.AddWithValue("@EstateBuyer", typeof(string)).Value = estate.EstateBuyer;
+                        insertCommand.Parameters.AddWithValue("@EstateContractNumber", typeof(string)).Value = estate.EstateContractNumber;
+
 
                     }
                     connection.Open();
@@ -150,10 +153,10 @@ namespace DAL
                         new_estate.EstateWall = (string)reader.GetValue(8);
                         new_estate.EstateState = (string)reader.GetValue(9);
                         new_estate.EstateOwner = (string)reader.GetValue(10);
-                        new_estate.EstateRentPrice = (double)reader.GetValue(11);
-                        new_estate.EstateCostOfSale = (double)reader.GetValue(12);
-                        new_estate.EstateDescription = (string)reader.GetValue(13);
-                        new_estate.EstateDeal = (string)reader.GetValue(14);
+                        new_estate.EstateCostOfSale = (double)reader.GetValue(11);
+                        new_estate.EstateDescription = (string)reader.GetValue(12);
+                        new_estate.EstateBuyer = (string)reader.GetValue(13).ToString();
+                        new_estate.EstateContractNumber = (string)reader.GetValue(14).ToString();
 
                         _estatesObsColl.Add(new_estate);
                     }

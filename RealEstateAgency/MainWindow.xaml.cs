@@ -24,10 +24,16 @@ namespace RealEstateAgency
     {
         
         private IEstatesRepository estateRepository;
+        private IOwnerRepository ownerRepository;
+        private IBuyerRepository buyerRepository;
+        //private IContractOfSaleRepository contractOfSaleRepository;
+
         public MainWindow()
         {
             InitializeComponent();
             UpdateSelectedEstate();
+            UpdateSelectedOwner();
+            UpdateSelectedBuyer();
         }
 
         private void UpdateSelectedEstate()
@@ -37,6 +43,27 @@ namespace RealEstateAgency
             foreach (Estate estate in estateRepository.GetAll())
             {
                 estateSense.Items.Add(estate);
+            }
+
+        }
+
+        private void UpdateSelectedOwner()
+        {
+            ownerRepository = new OwnerRepository();
+            showOwner.Items.Clear();
+            foreach (Owner owner in ownerRepository.GetAll())
+            {
+                showOwner.Items.Add(owner);
+            }
+        }
+
+        private void UpdateSelectedBuyer()
+        {
+            buyerRepository = new BuyerRepository();
+            showBuyer.Items.Clear();
+            foreach (Buyer buyer in buyerRepository.GetAll())
+            {
+                showBuyer.Items.Add(buyer);
             }
         }
 
@@ -98,19 +125,30 @@ namespace RealEstateAgency
 
             if (selectedEstate != null)
             {
-                estateDescription.Content = $"Наименование: {selectedEstate.EstateName} \n" +
+                estateDescription.Content = 
+                    $"Наименование: {selectedEstate.EstateName} \n" +
                     $"Инвентраный номер: {selectedEstate.EstateInventoryNumber} \n" +
                     $"Общая площадь: {selectedEstate.EstateSpace} \n" +
                     $"Местонахождение: {selectedEstate.EstateAdress} \n" +
                     $"Назначение: {selectedEstate.EstateFunction} \n" +
                     $"Год постройки: {selectedEstate.EstateYear} \n" +
                     $"Материал стен: {selectedEstate.EstateWall} \n" +
-                    $"Арендатор: {selectedEstate.EstateState} \n" +
+                    $"Состояние: {selectedEstate.EstateState} \n" +
                     $"Собственник: {selectedEstate.EstateOwner} \n" +
-                    $"Стоимость аренды (1 кв.м.): {selectedEstate.EstateRentPrice} бел.руб.\n" +
+                    $"Покупатель: {selectedEstate.EstateBuyer} \n" +
+                    $"Договор: {selectedEstate.EstateContractNumber} \n" +
                     $"Цена продажи: {selectedEstate.EstateCostOfSale} бел.руб.\n" +
-                    $"Статус объекта: {selectedEstate.EstateDeal} \n" +
                     $"Краткое описание: {selectedEstate.EstateDescription}";
+            }
+        }
+
+        private void ownerSense_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Owner selectedOwner = showOwner.SelectedItem as Owner;
+
+            if (selectedOwner != null)
+            {
+
             }
         }
     }

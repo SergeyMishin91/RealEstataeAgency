@@ -59,7 +59,7 @@
             </MenuItem>
         </Menu>
 
-        <TabControl Name="allOptionsTC" HorizontalAlignment="Left" VerticalAlignment="Top" Height="520" Width="964">
+        <TabControl Name="allOptionsTC" HorizontalAlignment="Left" VerticalAlignment="Top" Height="520" Width="970">
             <TabItem Header="Недвижимость">
                 <Grid DockPanel.Dock="Left" Background="AliceBlue">
                     <Grid.RowDefinitions>
@@ -129,7 +129,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Content="Продавцы:" Margin="10,10,189,30" Grid.Row="0" Grid.Column="0"/>
                     <ListBox Name="showOwner" HorizontalAlignment="Left" Height="256" Margin="10,41,0,0" 
-                        VerticalAlignment="Top" Width="264" Grid.Column="0" SelectionChanged="ownerSense_SelectionChanged" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        VerticalAlignment="Top" Width="264" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -149,7 +149,7 @@
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
-                        
+
                     </ListBox>
 
                     <Button Name="addOwner" Content="Добавить" Grid.Row="2" Grid.Column="1" Margin="160,130,218,14" Click="addEstate_Click"/>
@@ -160,21 +160,28 @@
 
             </TabItem>
             <TabItem Header="Договоры">
-                <ListView Name="contractOfSaleSense" HorizontalAlignment="Left" Height="256" Margin="10,1,0,0" 
-                        VerticalAlignment="Top" Width="935" Grid.Row="1" Grid.Column="0" SelectionChanged="estateSense_SelectionChanged">
+                <ListView Name="contractOfSaleSense" HorizontalAlignment="Left" Height="488" Margin="10,0,0,0" 
+                        VerticalAlignment="Top" Width="950" Grid.Row="1" Grid.Column="0">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Name="addContractOfSale" Header="Добавить договор" Click="addContractOfSale_Click"/>
+                            <MenuItem Name="changeContractOfSale" Header="Изменить договор"/>
+                            <MenuItem Name="deleteContractOfSale" Header="Удалить договор"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <ListView.View>
                         <GridView>
                             <GridView.Columns>
                                 <GridViewColumn Header="Номер договора" Width="100"
-                                        DisplayMemberBinding="{Binding EstateFunction}" />
+                                        DisplayMemberBinding="{Binding ContractOfSaleNumber}" />
                                 <GridViewColumn Header="Дата заключения" Width="100"
-                                        DisplayMemberBinding="{Binding EstateFunction}" />
+                                        DisplayMemberBinding="{Binding ContractOfSaleDate}" />
                                 <GridViewColumn Header="Покупатель" Width="100"
-                                        DisplayMemberBinding="{Binding EstateSpace}" />
+                                        DisplayMemberBinding="{Binding ContractOfSaleBuyer}" />
                                 <GridViewColumn Header="Продавец" Width="100"
-                                        DisplayMemberBinding= "{Binding EstateCostOfSale}" />
+                                        DisplayMemberBinding= "{Binding ContractOfSaleOwner}" />
                                 <GridViewColumn Header="Цена продажи" Width="100"
-                                        DisplayMemberBinding= "{Binding EstateCostOfSale}" />
+                                        DisplayMemberBinding= "{Binding ContractOfSaleCost}" />
                                 <GridViewColumn Header="Объект недвижимости" Width="400"
                                         DisplayMemberBinding= "{Binding EstateCostOfSale}" />
                             </GridView.Columns>

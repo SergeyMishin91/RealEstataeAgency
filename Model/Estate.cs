@@ -3,11 +3,11 @@
     public class Estate
     {
         public int EstateID { get; set; }
+        public int EstateOwnerID { get; set; }
         public string EstateName { get; set; }
         public string EstateInventoryNumber { get; set; }
         public double EstateSpace { get; set; }
         public string EstateAdress { get; set; }
-        public byte[] EstatePhoto { get; set; }
         public string EstateFunction { get; set; }
         public int EstateYear { get; set; }
         public string EstateWall { get; set; }

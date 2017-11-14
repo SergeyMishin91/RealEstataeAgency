@@ -11,7 +11,6 @@ namespace Model
         public int  ContractOfSaleID { get; set; }
         public int EstateBuyerID { get; set; }
         public int EstateOwnerID { get; set; }
-        public int EstateID { get; set; }
         public string ContractOfSaleNumber { get; set; }
         public DateTime ContractOfSaleDate { get; set; }
         public string ContractOfSaleOwner { get; set; }

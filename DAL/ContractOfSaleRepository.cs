@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    class ContractOfSaleRepository : IContractOfSaleRepository
+    public class ContractOfSaleRepository : IContractOfSaleRepository
     {
         public ObservableCollection<ContractOfSale> _cosCollection = new ObservableCollection<ContractOfSale>();
 
@@ -46,12 +46,52 @@ namespace DAL
 
         public void DeleteContractOfSale(ContractOfSale cos)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
+            {
+
+                using (SqlCommand deleteCommand = new SqlCommand("DELETE FROM ContractOfSale " +
+                               "WHERE ContractOfSaleID = @ContractOfSaleID", connection))
+                {
+                    deleteCommand.Parameters.Clear();
+                    deleteCommand.Parameters.AddWithValue("@ContractOfSaleID", typeof(string)).Value = cos.ContractOfSaleID;
+
+                    connection.Open();
+                    deleteCommand.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
         }
 
         public void UpdateContractOfSale(ContractOfSale cos)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
+            {
+
+                using (SqlCommand updateCommand = new SqlCommand("UPDATE ContractOfSale " +
+                               "SET " +
+                               //"ContractOfSaleID = @ContractOfSaleID, " +
+                               "ContractOfSaleNumber = @ContractOfSaleNumber, " +
+                               "ContractOfSaleDate = @ContractOfSaleDate, " +
+                               "ContractOfSaleOwner = @ContractOfSaleOwner, " +
+                               "ContractOfSaleBuyer = @ContractOfSaleBuyer, " +
+                               "ContractOfSaleCost = @ContractOfSaleCost, " +
+
+                               "WHERE ContractOfSaleID = @ContractOfSaleID", connection))
+                {
+                    updateCommand.Parameters.Clear();
+
+                    updateCommand.Parameters.AddWithValue("@ContractOfSaleNumber", typeof(string)).Value = cos.ContractOfSaleNumber;
+                    updateCommand.Parameters.AddWithValue("@ContractOfSaleDate", typeof(string)).Value = cos.ContractOfSaleDate;
+                    updateCommand.Parameters.AddWithValue("@ContractOfSaleOwner", typeof(string)).Value = cos.ContractOfSaleOwner;
+                    updateCommand.Parameters.AddWithValue("@ContractOfSaleBuyer", typeof(string)).Value = cos.ContractOfSaleBuyer;
+                    updateCommand.Parameters.AddWithValue("@ContractOfSaleCost", typeof(string)).Value = cos.ContractOfSaleCost;
+                    // updateCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = owner.OwnerContractOfSaleID;
+
+                    connection.Open();
+                    updateCommand.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
         }
 
         public IEnumerable<ContractOfSale> GetAll()
@@ -86,7 +126,6 @@ namespace DAL
 
             }
         }
-
 
     }
 }

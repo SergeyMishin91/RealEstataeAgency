@@ -1,5 +1,6 @@
 ﻿using DAL;
 using Model;
+using RealEstateAgency.COSChangeWindows;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace RealEstateAgency
         private IEstatesRepository estateRepository;
         private IOwnerRepository ownerRepository;
         private IBuyerRepository buyerRepository;
-        //private IContractOfSaleRepository contractOfSaleRepository;
+        private IContractOfSaleRepository contractOfSaleRepository;
 
         public MainWindow()
         {
@@ -34,7 +35,10 @@ namespace RealEstateAgency
             UpdateSelectedEstate();
             UpdateSelectedOwner();
             UpdateSelectedBuyer();
+            UpdateSelectedContractOfSale();
         }
+
+        #region ActionsWithEstate
 
         private void UpdateSelectedEstate()
         {
@@ -44,46 +48,6 @@ namespace RealEstateAgency
             {
                 estateSense.Items.Add(estate);
             }
-
-        }
-
-        private void UpdateSelectedOwner()
-        {
-            ownerRepository = new OwnerRepository();
-            showOwner.Items.Clear();
-            foreach (Owner owner in ownerRepository.GetAll())
-            {
-                showOwner.Items.Add(owner);
-            }
-        }
-
-        private void UpdateSelectedBuyer()
-        {
-            buyerRepository = new BuyerRepository();
-            showBuyer.Items.Clear();
-            foreach (Buyer buyer in buyerRepository.GetAll())
-            {
-                showBuyer.Items.Add(buyer);
-            }
-        }
-
-        private void FileExit_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void Estates_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Clients_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Treaties_Click(object sender, RoutedEventArgs e)
-        {
 
         }
 
@@ -125,7 +89,7 @@ namespace RealEstateAgency
 
             if (selectedEstate != null)
             {
-                estateDescription.Content = 
+                estateDescription.Content =
                     $"Наименование: {selectedEstate.EstateName} \n" +
                     $"Инвентраный номер: {selectedEstate.EstateInventoryNumber} \n" +
                     $"Общая площадь: {selectedEstate.EstateSpace} \n" +
@@ -142,14 +106,71 @@ namespace RealEstateAgency
             }
         }
 
-        private void ownerSense_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        #endregion
+
+        #region ActionsWithContractOfSale
+        private void UpdateSelectedContractOfSale()
         {
-            Owner selectedOwner = showOwner.SelectedItem as Owner;
-
-            if (selectedOwner != null)
+            contractOfSaleRepository = new ContractOfSaleRepository();
+            contractOfSaleSense.Items.Clear();
+            foreach (ContractOfSale cos in contractOfSaleRepository.GetAll())
             {
-
+                contractOfSaleSense.Items.Add(cos);
             }
         }
+
+        private void addContractOfSale_Click(object sender, RoutedEventArgs e)
+        {
+            WindowAddContractOfSale winAddCOS = new WindowAddContractOfSale();
+            winAddCOS.ShowDialog();
+
+            UpdateSelectedEstate();
+        }
+        #endregion
+
+
+
+
+        private void UpdateSelectedOwner()
+        {
+            ownerRepository = new OwnerRepository();
+            showOwner.Items.Clear();
+            foreach (Owner owner in ownerRepository.GetAll())
+            {
+                showOwner.Items.Add(owner);
+            }
+        }
+
+        private void UpdateSelectedBuyer()
+        {
+            buyerRepository = new BuyerRepository();
+            showBuyer.Items.Clear();
+            foreach (Buyer buyer in buyerRepository.GetAll())
+            {
+                showBuyer.Items.Add(buyer);
+            }
+        }
+
+        private void FileExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Estates_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Clients_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Treaties_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }

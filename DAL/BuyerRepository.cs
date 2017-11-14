@@ -18,9 +18,9 @@ namespace DAL
             {
                 using (SqlCommand insertCommand = new SqlCommand("Insert Into dbo.Owner" +
                                "(EstateBuyerID, EstateBuyerName, EstateBuyerAdress, EstateBuyerUNP, " +
-                               "EstateBuyerPhone, EstateBuyerRequest) " +
+                               "EstateBuyerPhone, EstateBuyerRequest, ContractOfSaleID) " +
                                "Values(@EstateBuyerID, @EstateBuyerName, @EstateBuyerAdress, @EstateBuyerUNP, @EstateBuyerPhone," +
-                               "@EstateBuyerRequest)", connection))
+                               "@EstateBuyerRequest, @ContractOfSaleID)", connection))
                 {
 
                     foreach (Buyer _buyer in _buyersCollection)
@@ -33,7 +33,7 @@ namespace DAL
                         insertCommand.Parameters.AddWithValue("@EstateBuyerUNP", typeof(string)).Value = buyer.EstateBuyerUNP;
                         insertCommand.Parameters.AddWithValue("@EstateBuyerPhone", typeof(string)).Value = buyer.EstateBuyerPhone;
                         insertCommand.Parameters.AddWithValue("@EstateBuyerRequest", typeof(string)).Value = buyer.EstateBuyerRequest;
-                        //insertCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = owner.OwnerContractOfSaleID;
+                        insertCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = buyer.ContractOfSaleID;
 
                     }
                     connection.Open();
@@ -115,7 +115,7 @@ namespace DAL
                         new_buyer.EstateBuyerUNP = (Int32)reader.GetValue(3);
                         new_buyer.EstateBuyerPhone = (string)reader.GetValue(4);
                         new_buyer.EstateBuyerRequest = (string)reader.GetValue(5);
-                        //new_buyer.ContractOfSaleID = (string)reader.GetValue(6).ToString();
+                        new_buyer.ContractOfSaleID = (Int32)reader.GetValue(6);
                         
 
                         _buyersCollection.Add(new_buyer);

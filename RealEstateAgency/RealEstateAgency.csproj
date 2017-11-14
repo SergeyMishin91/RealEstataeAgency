@@ -54,12 +54,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="COSChangeWindows\WindowAddContractOfSale.xaml.cs">
+      <DependentUpon>WindowAddContractOfSale.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EstateChangeWindows\WindowAddEstate.xaml.cs">
       <DependentUpon>WindowAddEstate.xaml</DependentUpon>
     </Compile>
     <Compile Include="EstateChangeWindows\WindowChangeEstate.xaml.cs">
       <DependentUpon>WindowChangeEstate.xaml</DependentUpon>
     </Compile>
+    <Page Include="COSChangeWindows\WindowAddContractOfSale.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -122,6 +129,10 @@
       <Project>{FE618DBD-09EF-4C59-B349-8F17B4676A94}</Project>
       <Name>Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BuyerChangeWindows\" />
+    <Folder Include="OwnerChangeWindows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

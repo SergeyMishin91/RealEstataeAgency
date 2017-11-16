@@ -28,18 +28,16 @@
         <Label Grid.Row="3" x:Name="LabelAddCOSBuyer" Content="Покупатель" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
         <Label Grid.Row="4" x:Name="LabelAddCOSCost" Content="Цена" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
 
-        <TextBox Grid.Column="1" Name="TextBoxAddCOSNumber" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="170"/>
-        <!--<ComboBox Grid.Column="1" Name="ComboBoxAddEstateName" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="170">
-            <ComboBoxItem Content="Капитальное строение"/>
-            <ComboBoxItem Content="Изолированное помещение"/>
-        </ComboBox>-->
-        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxAddCOSDate" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" Name="ComboBoxAddCOSOwner" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="170">
-            
+        <TextBox Grid.Column="1" Name="TextBoxAddCOSNumber" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxAddCOSDate" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="ComboBoxAddCOSOwner" HorizontalAlignment="Left" Height="26" 
+                  Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
+                  ItemsSource="{Binding Owners}" SelectedItem="{Binding SelectedOwner}">
+
         </ComboBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxAddCOSBuyer" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddCOSCost" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="170"/>
-        
+        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxAddCOSBuyer" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddCOSCost" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
+
         <StackPanel  Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,10,0">
             <Button  x:Name="ButtonAddCOS" Content="Добавить" HorizontalAlignment="Left" Margin="20,10,0,15" 
                      VerticalAlignment="Top" Width="75" Click="ButtonAddCOS_Click"/>

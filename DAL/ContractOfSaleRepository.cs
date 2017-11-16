@@ -13,7 +13,8 @@ namespace DAL
         public ObservableCollection<ContractOfSale> _cosCollection = new ObservableCollection<ContractOfSale>();
 
         public void AddContractOfSale(ContractOfSale cos)
-        {
+        {        
+
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
                 using (SqlCommand insertCommand = new SqlCommand("INSERT INTO ContractOfSale" +
@@ -23,8 +24,8 @@ namespace DAL
                                "@ContractOfSaleCost)", connection))
                 {
 
-                    foreach (ContractOfSale _cos in _cosCollection)
-                    {
+                    //foreach (ContractOfSale _cos in _cosCollection)
+                    //{
                         insertCommand.Parameters.Clear();
 
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleID", typeof(string)).Value = cos.ContractOfSaleID;
@@ -33,9 +34,12 @@ namespace DAL
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleOwner", typeof(string)).Value = cos.ContractOfSaleOwner;
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleBuyer", typeof(string)).Value = cos.ContractOfSaleBuyer;
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleCost", typeof(string)).Value = cos.ContractOfSaleCost;
-                        //insertCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = owner.OwnerContractOfSaleID;
+                    //insertCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = owner.OwnerContractOfSaleID;
+                    //foreach (Owner owner in new OwnerRepository().GetAll())
+                    //    if (owner.OwnerName == cos.ContractOfSaleOwner)
+                    //        insertCommand.Parameters.AddWithValue("@ContractOfSaleOwnerID", typeof(string)).Value = owner.OwnerID;
 
-                    }
+                    //}
                     connection.Open();
                     insertCommand.ExecuteNonQuery();
                     connection.Close();

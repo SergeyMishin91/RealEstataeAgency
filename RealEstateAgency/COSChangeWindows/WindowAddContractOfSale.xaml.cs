@@ -3,6 +3,8 @@ using Model;
 using Repository;
 using DAL;
 using System.Windows.Controls;
+using System;
+using RealEstateAgency.BuyerChangeWindows;
 
 namespace RealEstateAgency.COSChangeWindows
 {
@@ -15,11 +17,13 @@ namespace RealEstateAgency.COSChangeWindows
         public WindowAddContractOfSale()
         {
             InitializeComponent();
+            
         }
 
         private IContractOfSaleRepository cosRepository = new ContractOfSaleRepository();
 
         ContractOfSale NewContractOfSale = new ContractOfSale();
+        WindowAddBuyer winAddBuyer = new WindowAddBuyer();
 
         private void ButtonAddCOS_Click(object sender, RoutedEventArgs e)
         {
@@ -30,11 +34,22 @@ namespace RealEstateAgency.COSChangeWindows
             }
 
             NewContractOfSale.ContractOfSaleID = _idCounter++;
-            //NewContractOfSale.ContractOfSaleDate = ;
+            NewContractOfSale.ContractOfSaleDate = DateTime.Parse(TextBoxAddCOSDate.Text);
             NewContractOfSale.ContractOfSaleOwner = ((ComboBoxItem)ComboBoxAddCOSOwner.SelectedItem).Content.ToString();
             NewContractOfSale.ContractOfSaleBuyer = TextBoxAddCOSBuyer.Text;
             NewContractOfSale.ContractOfSaleCost = double.Parse(TextBoxAddCOSCost.Text);
-
+            foreach (Owner owner in new OwnerRepository().GetAll())
+                if (NewContractOfSale.ContractOfSaleOwner == owner.OwnerName)
+                    NewContractOfSale.EstateOwnerID = owner.EstateID;
+            foreach (Buyer buyer in new BuyerRepository().GetAll())
+            {
+                if (NewContractOfSale.ContractOfSaleBuyer == buyer.EstateBuyerName)
+                    NewContractOfSale.EstateBuyerID = buyer.EstateBuyerID;
+                else winAddBuyer.ShowDialog();
+            }
+            
+            cosRepository.AddContractOfSale(NewContractOfSale);
+            MessageBox.Show("Данные добавлены.");
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)

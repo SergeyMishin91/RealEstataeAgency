@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BuyerChangeWindows\WindowAddBuyer.xaml.cs">
+      <DependentUpon>WindowAddBuyer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="COSChangeWindows\WindowAddContractOfSale.xaml.cs">
       <DependentUpon>WindowAddContractOfSale.xaml</DependentUpon>
     </Compile>
@@ -63,6 +66,10 @@
     <Compile Include="EstateChangeWindows\WindowChangeEstate.xaml.cs">
       <DependentUpon>WindowChangeEstate.xaml</DependentUpon>
     </Compile>
+    <Page Include="BuyerChangeWindows\WindowAddBuyer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="COSChangeWindows\WindowAddContractOfSale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,7 +138,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BuyerChangeWindows\" />
     <Folder Include="OwnerChangeWindows\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

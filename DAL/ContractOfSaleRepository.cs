@@ -18,10 +18,10 @@ namespace DAL
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
                 using (SqlCommand insertCommand = new SqlCommand("INSERT INTO ContractOfSale" +
-                               "(ContractOfSaleID, ContractOfSaleNumber, ContractOfSaleDate, ContractOfSaleOwner, " +
+                               "(ContractOfSaleID, ContractOfSaleBuyerID, ContractOfSaleOwnerID, ContractOfSaleNumber, ContractOfSaleDate, ContractOfSaleOwner, " +
                                "ContractOfSaleBuyer, ContractOfSaleCost) " +
-                               "Values(@ContractOfSaleID, @ContractOfSaleNumber, @ContractOfSaleDate, @ContractOfSaleOwner, @ContractOfSaleBuyer," +
-                               "@ContractOfSaleCost)", connection))
+                               "Values(@ContractOfSaleID, @ContractOfSaleBuyerID, @ContractOfSaleOwnerID, @ContractOfSaleNumber, @ContractOfSaleDate, " +
+                               "@ContractOfSaleOwner, @ContractOfSaleBuyer, @ContractOfSaleCost)", connection))
                 {
 
                     //foreach (ContractOfSale _cos in _cosCollection)
@@ -29,6 +29,8 @@ namespace DAL
                         insertCommand.Parameters.Clear();
 
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleID", typeof(string)).Value = cos.ContractOfSaleID;
+                        insertCommand.Parameters.AddWithValue("@ContractOfSaleBuyerID", typeof(string)).Value = cos.ContractOfSaleBuyerID;
+                        insertCommand.Parameters.AddWithValue("@ContractOfSaleOwnerID", typeof(string)).Value = cos.ContractOfSaleOwnerID;
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleNumber", typeof(string)).Value = cos.ContractOfSaleNumber;
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleDate", typeof(string)).Value = cos.ContractOfSaleDate;
                         insertCommand.Parameters.AddWithValue("@ContractOfSaleOwner", typeof(string)).Value = cos.ContractOfSaleOwner;
@@ -114,12 +116,13 @@ namespace DAL
                         ContractOfSale new_cos = new ContractOfSale();
 
                         new_cos.ContractOfSaleID = (Int32)reader.GetValue(0);
-                        new_cos.ContractOfSaleNumber = (string)reader.GetValue(4);
-                        new_cos.ContractOfSaleDate = (DateTime)reader.GetValue(5);
-                        new_cos.ContractOfSaleOwner = (string)reader.GetValue(6);
-                        new_cos.ContractOfSaleBuyer = (string)reader.GetValue(7);
-                        new_cos.ContractOfSaleCost = (double)reader.GetValue(8);
-                        //new_buyer.ContractOfSaleID = (string)reader.GetValue(6).ToString();
+                        new_cos.ContractOfSaleBuyerID = (Int32)reader.GetValue(1);
+                        new_cos.ContractOfSaleOwnerID = (Int32)reader.GetValue(2);
+                        new_cos.ContractOfSaleNumber = (string)reader.GetValue(3);
+                        new_cos.ContractOfSaleDate = (DateTime)reader.GetValue(4);
+                        new_cos.ContractOfSaleOwner = (string)reader.GetValue(5);
+                        new_cos.ContractOfSaleBuyer = (string)reader.GetValue(6);
+                        new_cos.ContractOfSaleCost = (double)reader.GetValue(7);
 
 
                         _cosCollection.Add(new_cos);

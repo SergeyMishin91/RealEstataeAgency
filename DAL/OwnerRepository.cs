@@ -38,7 +38,7 @@ namespace DAL
                         insertCommand.Parameters.AddWithValue("@OwnerPhone", typeof(string)).Value = owner.OwnerPhone;
                         insertCommand.Parameters.AddWithValue("@OwnerContractOfSaleNumber", typeof(string)).Value = owner.OwnerContractOfSaleNumber;
                         insertCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = owner.OwnerContractOfSaleID;
-                        
+
                     }
                     connection.Open();
                     insertCommand.ExecuteNonQuery();
@@ -90,7 +90,7 @@ namespace DAL
                     updateCommand.Parameters.AddWithValue("@OwnerPhone", typeof(string)).Value = owner.OwnerPhone;
                     updateCommand.Parameters.AddWithValue("@OwnerContractOfSaleNumber", typeof(string)).Value = owner.OwnerContractOfSaleNumber;
                     updateCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = owner.OwnerContractOfSaleID;
-                    
+
                     connection.Open();
                     updateCommand.ExecuteNonQuery();
                     connection.Close();
@@ -120,7 +120,7 @@ namespace DAL
                         new_owner.OwnerPhone = (string)reader.GetValue(4);
                         new_owner.OwnerContractOfSaleNumber = (string)reader.GetValue(5).ToString();
                         //new_owner.OwnerContractOfSaleID = (Int32)reader.GetValue(6);
-                              
+
                         _ownersCollection.Add(new_owner);
                     }
                     connection.Close();
@@ -129,6 +129,6 @@ namespace DAL
 
             }
         }
-    
+          
     }
 }

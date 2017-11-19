@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealEstateAgency.BuyerChangeWindows"
         mc:Ignorable="d"
-        Title="WindowAddBuyer" Height="300" Width="300">
+        Title="Добавление покупателя" Height="350" Width="350">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="110*"/>
+            <RowDefinition Height="49*"/>
+
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="68*"/>
+            <ColumnDefinition Width="103*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="LabelAddBuyerName" Content="Наименование" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107" Height="26"/>
+        <Label Grid.Row="1" x:Name="LabelAddBuyerAdress" Content="Юридический адрес" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="123" Height="26"/>
+        <Label Grid.Row="2" x:Name="LabelAddBuyerUNP" Content="УНП" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107" Height="26"/>
+        <Label Grid.Row="3" x:Name="LabelAddBuyerPhone" Content="Телефон" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107" Height="26"/>
+        <Label Grid.Row="4" x:Name="LabelAddBuyerRequest" Content="Требование" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107" Height="26"/>
+
+
+        <TextBox Grid.Column="1" Name="TextBoxAddBuyerName" HorizontalAlignment="Left" Height="26" 
+                 Margin="35,5,0,0" VerticalAlignment="Top" Width="160"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxAddBuyerAdress" HorizontalAlignment="Left" Height="26" 
+                 Margin="35,5,0,0" VerticalAlignment="Top" Width="160"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxAddBuyerUNP" HorizontalAlignment="Left" Height="26" 
+                  Margin="35,5,0,0" VerticalAlignment="Top" Width="160" />
+        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxAddBuyerPhone" HorizontalAlignment="Left" Height="26"
+                   Margin="35,5,0,0" VerticalAlignment="Top" Width="160"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddBuyerRequest" Height="95" Margin="35,5,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
+
+        <StackPanel  Grid.Row="5" Grid.ColumnSpan="2" Margin="0,3,0,0">
+            <Button  x:Name="ButtonAddBuyer" Content="Добавить" HorizontalAlignment="Left" Margin="20,10,0,15" 
+                     VerticalAlignment="Top" Width="75" Click="ButtonAddBuyer_Click"/>
+            <Button  x:Name="ButtonClearFields" Content="Очистить" HorizontalAlignment="Left" Margin="111,-35,0,0" 
+                     VerticalAlignment="Top" Width="75" />
+            <Button  x:Name="ButtonCancel" Content="Отмена" Margin="205,-35,0,0" VerticalAlignment="Top" 
+                     HorizontalAlignment="Left" Width="75" Click="ButtonCancel_Click"/>
+        </StackPanel>
+
     </Grid>
 </Window>

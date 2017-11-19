@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealEstateAgency.COSChangeWindows"
         mc:Ignorable="d"
-        Title="Добавление договора" Height="300" Width="300">
+        Title="Добавление договора" Height="300" Width="310">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -29,14 +29,17 @@
         <Label Grid.Row="4" x:Name="LabelAddCOSCost" Content="Цена" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
 
         <TextBox Grid.Column="1" Name="TextBoxAddCOSNumber" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxAddCOSDate" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+        <DatePicker Grid.Row="1" Grid.Column="1" Name="DPAddCOSDate" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"/>
         <ComboBox Grid.Row="2" Grid.Column="1" Name="ComboBoxAddCOSOwner" HorizontalAlignment="Left" Height="26" 
                   Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
-                  ItemsSource="{Binding Owners}" SelectedItem="{Binding SelectedOwner}">
+                  Loaded="ComboBoxAddCOSOwner_Loaded">
 
         </ComboBox>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxAddCOSBuyer" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddCOSCost" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
+        <ComboBox Grid.Row="3" IsEditable="True" Grid.Column="1" Name="ComboBoxAddCOSBuyer" HorizontalAlignment="Left" 
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
+                  Loaded="ComboBoxAddCOSBuyer_Loaded"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddCOSCost" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" 
+                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
 
         <StackPanel  Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,10,0">
             <Button  x:Name="ButtonAddCOS" Content="Добавить" HorizontalAlignment="Left" Margin="20,10,0,15" 

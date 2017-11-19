@@ -2,22 +2,18 @@
 using Model;
 using Repository;
 using DAL;
-using System.Windows.Controls;
 using System;
 using RealEstateAgency.BuyerChangeWindows;
+using System.Collections.Generic;
 
 namespace RealEstateAgency.COSChangeWindows
 {
-    /// <summary>
-    /// Interaction logic for WindowAddContractOfSale.xaml
-    ///
-    /// </summary>
+
     public partial class WindowAddContractOfSale : Window
     {
         public WindowAddContractOfSale()
         {
-            InitializeComponent();
-            
+            InitializeComponent();           
         }
 
         private IContractOfSaleRepository cosRepository = new ContractOfSaleRepository();
@@ -34,17 +30,17 @@ namespace RealEstateAgency.COSChangeWindows
             }
 
             NewContractOfSale.ContractOfSaleID = _idCounter++;
-            NewContractOfSale.ContractOfSaleDate = DateTime.Parse(TextBoxAddCOSDate.Text);
-            NewContractOfSale.ContractOfSaleOwner = ((ComboBoxItem)ComboBoxAddCOSOwner.SelectedItem).Content.ToString();
-            NewContractOfSale.ContractOfSaleBuyer = TextBoxAddCOSBuyer.Text;
+            NewContractOfSale.ContractOfSaleDate = DateTime.Parse(DPAddCOSDate.Text);
+            NewContractOfSale.ContractOfSaleOwner = ComboBoxAddCOSOwner.SelectedItem.ToString(); //((ComboBoxItem)ComboBoxAddCOSOwner.SelectedItem).Content.ToString();
+            NewContractOfSale.ContractOfSaleBuyer = ComboBoxAddCOSBuyer.SelectedItem.ToString();
             NewContractOfSale.ContractOfSaleCost = double.Parse(TextBoxAddCOSCost.Text);
             foreach (Owner owner in new OwnerRepository().GetAll())
                 if (NewContractOfSale.ContractOfSaleOwner == owner.OwnerName)
-                    NewContractOfSale.EstateOwnerID = owner.EstateID;
+                    NewContractOfSale.ContractOfSaleOwnerID = owner.OwnerID;
             foreach (Buyer buyer in new BuyerRepository().GetAll())
             {
                 if (NewContractOfSale.ContractOfSaleBuyer == buyer.EstateBuyerName)
-                    NewContractOfSale.EstateBuyerID = buyer.EstateBuyerID;
+                    NewContractOfSale.ContractOfSaleBuyerID = buyer.EstateBuyerID;
                 else winAddBuyer.ShowDialog();
             }
             
@@ -55,6 +51,26 @@ namespace RealEstateAgency.COSChangeWindows
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void ComboBoxAddCOSOwner_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> _ownerNamesList = new List<string>();
+
+            foreach (Owner owner in new OwnerRepository().GetAll())
+                _ownerNamesList.Add(owner.OwnerName);
+
+            ComboBoxAddCOSOwner.ItemsSource = _ownerNamesList;
+        }
+
+        private void ComboBoxAddCOSBuyer_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> _buyerNamesList = new List<string>();
+
+            foreach (Buyer buyer in new BuyerRepository().GetAll())
+                _buyerNamesList.Add(buyer.EstateBuyerName);
+
+            ComboBoxAddCOSBuyer.ItemsSource = _buyerNamesList;
         }
     }
 }

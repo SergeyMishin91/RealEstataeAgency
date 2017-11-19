@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {
     public class ContractOfSale
     {
         public int  ContractOfSaleID { get; set; }
-        public int EstateBuyerID { get; set; }
-        public int EstateOwnerID { get; set; }
+        public int ContractOfSaleBuyerID { get; set; }
+        public int ContractOfSaleOwnerID { get; set; }
         public string ContractOfSaleNumber { get; set; }
         public DateTime ContractOfSaleDate { get; set; }
         public string ContractOfSaleOwner { get; set; }

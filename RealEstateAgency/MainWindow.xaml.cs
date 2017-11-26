@@ -85,10 +85,8 @@ namespace RealEstateAgency
                     $"Назначение: {selectedEstate.EstateFunction} \n" +
                     $"Год постройки: {selectedEstate.EstateYear} \n" +
                     $"Материал стен: {selectedEstate.EstateWall} \n" +
-                    $"Состояние: {selectedEstate.EstateState} \n" +
+                    $"Продан/не продан: {selectedEstate.EstateState} \n" +
                     $"Собственник: {selectedEstate.EstateOwner} \n" +
-                    $"Покупатель: {selectedEstate.EstateBuyer} \n" +
-                    $"Договор: {selectedEstate.EstateContractNumber} \n" +
                     $"Цена продажи: {selectedEstate.EstateCostOfSale} бел.руб.\n" +
                     $"Краткое описание: {selectedEstate.EstateDescription}";
             }
@@ -112,7 +110,7 @@ namespace RealEstateAgency
             WindowAddContractOfSale winAddCOS = new WindowAddContractOfSale();
             winAddCOS.ShowDialog();
 
-            UpdateSelectedEstate();
+            UpdateSelectedContractOfSale();
         }
         #endregion
 

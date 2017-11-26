@@ -16,25 +16,23 @@ namespace DAL
         {
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
-                using (SqlCommand insertCommand = new SqlCommand("Insert Into dbo.Owner" +
-                               "(EstateBuyerID, EstateBuyerName, EstateBuyerAdress, EstateBuyerUNP, " +
-                               "EstateBuyerPhone, EstateBuyerRequest, ContractOfSaleID) " +
-                               "Values(@EstateBuyerID, @EstateBuyerName, @EstateBuyerAdress, @EstateBuyerUNP, @EstateBuyerPhone," +
-                               "@EstateBuyerRequest, @ContractOfSaleID)", connection))
+                using (SqlCommand insertCommand = new SqlCommand("Insert Into dbo.Buyer" +
+                               "(BuyerID, BuyerName, BuyerAdress, BuyerUNP, " +
+                               "BuyerPhone, BuyerRequest) " +
+                               "Values(@BuyerID, @BuyerName, @BuyerAdress, @BuyerUNP, @BuyerPhone," +
+                               "@BuyerRequest)", connection))
                 {
 
                     foreach (Buyer _buyer in _buyersCollection)
                     {
                         insertCommand.Parameters.Clear();
 
-                        insertCommand.Parameters.AddWithValue("@EstateBuyerID", typeof(string)).Value = buyer.EstateBuyerID;
-                        insertCommand.Parameters.AddWithValue("@EstateBuyerName", typeof(string)).Value = buyer.EstateBuyerName;
-                        insertCommand.Parameters.AddWithValue("@EstateBuyerAdress", typeof(string)).Value = buyer.EstateBuyerAdress;
-                        insertCommand.Parameters.AddWithValue("@EstateBuyerUNP", typeof(string)).Value = buyer.EstateBuyerUNP;
-                        insertCommand.Parameters.AddWithValue("@EstateBuyerPhone", typeof(string)).Value = buyer.EstateBuyerPhone;
-                        insertCommand.Parameters.AddWithValue("@EstateBuyerRequest", typeof(string)).Value = buyer.EstateBuyerRequest;
-                        insertCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = buyer.ContractOfSaleID;
-
+                        insertCommand.Parameters.AddWithValue("@BuyerID", typeof(string)).Value = buyer.BuyerID;
+                        insertCommand.Parameters.AddWithValue("@BuyerName", typeof(string)).Value = buyer.BuyerName;
+                        insertCommand.Parameters.AddWithValue("@BuyerAdress", typeof(string)).Value = buyer.BuyerAdress;
+                        insertCommand.Parameters.AddWithValue("@BuyerUNP", typeof(string)).Value = buyer.BuyerUNP;
+                        insertCommand.Parameters.AddWithValue("@BuyerPhone", typeof(string)).Value = buyer.BuyerPhone;
+                        insertCommand.Parameters.AddWithValue("@BuyerRequest", typeof(string)).Value = buyer.BuyerRequest;
                     }
                     connection.Open();
                     insertCommand.ExecuteNonQuery();
@@ -48,12 +46,11 @@ namespace DAL
         {
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
-
                 using (SqlCommand deleteCommand = new SqlCommand("DELETE FROM dbo.Buyer " +
-                               "WHERE EstateBuyerID = @EstateBuyerID", connection))
+                               "WHERE BuyerID = @BuyerID", connection))
                 {
                     deleteCommand.Parameters.Clear();
-                    deleteCommand.Parameters.AddWithValue("@EstateBuyerID", typeof(string)).Value = buyer.EstateBuyerID;
+                    deleteCommand.Parameters.AddWithValue("@BuyerID", typeof(string)).Value = buyer.BuyerID;
 
                     connection.Open();
                     deleteCommand.ExecuteNonQuery();
@@ -67,25 +64,23 @@ namespace DAL
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
 
-                using (SqlCommand updateCommand = new SqlCommand("UPDATE dbo.Owner " +
+                using (SqlCommand updateCommand = new SqlCommand("UPDATE dbo.Buyer " +
                                "SET " +
-                               "EstateBuyerName = @EstateBuyerName, " +
-                               "EstateBuyerAdress = @EstateBuyerAdress, " +
-                               "EstateBuyerUNP = @EstateBuyerUNP, " +
-                               "EstateBuyerPhone = @EstateBuyerPhone, " +
-                               "EstateBuyerRequest = @EstateBuyerRequest, " +
-                               //"OwnerContractOfSaleID = @OwnerContractOfSaleID, " +
+                               "BuyerName = @BuyerName, " +
+                               "BuyerAdress = @BuyerAdress, " +
+                               "BuyerUNP = @BuyerUNP, " +
+                               "BuyerPhone = @BuyerPhone, " +
+                               "BuyerRequest = @BuyerRequest, " +
 
-                               "WHERE EstateBuyerID = @EstateBuyerID", connection))
+                               "WHERE BuyerID = @BuyerID", connection))
                 {
                     updateCommand.Parameters.Clear();
 
-                    updateCommand.Parameters.AddWithValue("@EstateBuyerName", typeof(string)).Value = buyer.EstateBuyerName;
-                    updateCommand.Parameters.AddWithValue("@EstateBuyerAdress", typeof(string)).Value = buyer.EstateBuyerAdress;
-                    updateCommand.Parameters.AddWithValue("@EstateBuyerUNP", typeof(string)).Value = buyer.EstateBuyerUNP;
-                    updateCommand.Parameters.AddWithValue("@EstateBuyerPhone", typeof(string)).Value = buyer.EstateBuyerPhone;
-                    updateCommand.Parameters.AddWithValue("@EstateBuyerRequest", typeof(string)).Value = buyer.EstateBuyerRequest;
-                   // updateCommand.Parameters.AddWithValue("@OwnerContractOfSaleID", typeof(string)).Value = owner.OwnerContractOfSaleID;
+                    updateCommand.Parameters.AddWithValue("@BuyerName", typeof(string)).Value = buyer.BuyerName;
+                    updateCommand.Parameters.AddWithValue("@BuyerAdress", typeof(string)).Value = buyer.BuyerAdress;
+                    updateCommand.Parameters.AddWithValue("@BuyerUNP", typeof(string)).Value = buyer.BuyerUNP;
+                    updateCommand.Parameters.AddWithValue("@BuyerPhone", typeof(string)).Value = buyer.BuyerPhone;
+                    updateCommand.Parameters.AddWithValue("@BuyerRequest", typeof(string)).Value = buyer.BuyerRequest;
 
                     connection.Open();
                     updateCommand.ExecuteNonQuery();
@@ -109,15 +104,13 @@ namespace DAL
                     {
                         Buyer new_buyer = new Buyer();
 
-                        new_buyer.EstateBuyerID = (Int32)reader.GetValue(0);
-                        new_buyer.EstateBuyerName = (string)reader.GetValue(1);
-                        new_buyer.EstateBuyerAdress = (string)reader.GetValue(2);
-                        new_buyer.EstateBuyerUNP = (Int32)reader.GetValue(3);
-                        new_buyer.EstateBuyerPhone = (string)reader.GetValue(4);
-                        new_buyer.EstateBuyerRequest = (string)reader.GetValue(5);
-                        new_buyer.ContractOfSaleID = (Int32)reader.GetValue(6);
+                        new_buyer.BuyerID = (Int32)reader.GetValue(0);
+                        new_buyer.BuyerName = (string)reader.GetValue(1);
+                        new_buyer.BuyerAdress = (string)reader.GetValue(2);
+                        new_buyer.BuyerUNP = (Int32)reader.GetValue(3);
+                        new_buyer.BuyerPhone = (string)reader.GetValue(4);
+                        new_buyer.BuyerRequest = (string)reader.GetValue(5);
                         
-
                         _buyersCollection.Add(new_buyer);
                     }
                     connection.Close();

@@ -183,7 +183,7 @@
                                 <GridViewColumn Header="Цена продажи" Width="100"
                                         DisplayMemberBinding= "{Binding ContractOfSaleCost}" />
                                 <GridViewColumn Header="Объект недвижимости" Width="400"
-                                        DisplayMemberBinding= "{Binding EstateCostOfSale}" />
+                                        DisplayMemberBinding= "{Binding ContractOfSaleEstateInventoryNumber}" />
                             </GridView.Columns>
                         </GridView>
                     </ListView.View>

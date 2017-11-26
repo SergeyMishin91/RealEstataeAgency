@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using Model;
 using DAL;
 using Repository;
+using System.Collections.Generic;
+using RealEstateAgency.OwnerChangeWindows;
 
 namespace RealEstateAgency
 {
@@ -34,11 +36,22 @@ namespace RealEstateAgency
             _newEstate.EstateYear = int.Parse(TextBoxAddEstateYear.Text);
             _newEstate.EstateWall = TextBoxAddEstateWall.Text;
             _newEstate.EstateState = "не продан";
-            _newEstate.EstateOwner = TextBoxAddEstateOwner.Text;
-            _newEstate.EstateCostOfSale = double.Parse(null);
+            _newEstate.EstateOwner = ComboBoxAddEstateOwner.SelectedItem.ToString();
+            _newEstate.EstateCostOfSale = double.Parse(TextBoxAddEstateSale.Text);
             _newEstate.EstateDescription = TextBoxAddEstateDescription.Text;
-            _newEstate.EstateBuyer = "";
-            _newEstate.EstateContractNumber = TextBoxAddEstateOwner.Text;
+
+            foreach (Owner owner in new OwnerRepository().GetAll())
+            {
+                if (_newEstate.EstateOwner == owner.OwnerName)
+                    _newEstate.EstateOwnerID = owner.OwnerID;
+                else
+                {
+                    WindowAddOwner winAddOwner = new WindowAddOwner(); 
+                    winAddOwner.ShowDialog();
+                }
+            }
+
+
 
             estateRepository.AddEstate(_newEstate);
 
@@ -49,6 +62,16 @@ namespace RealEstateAgency
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void ComboBoxAddEstateOwner_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<string> _ownerNamesList = new List<string>();
+
+            foreach (Owner owner in new OwnerRepository().GetAll())
+                _ownerNamesList.Add(owner.OwnerName);
+
+            ComboBoxAddEstateOwner.ItemsSource = _ownerNamesList;
         }
     }
 }

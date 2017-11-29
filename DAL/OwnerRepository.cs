@@ -65,15 +65,18 @@ namespace DAL
 
                 using (SqlCommand updateCommand = new SqlCommand("UPDATE dbo.Owner " +
                                "SET " +
-                               "EstateOwnerName = @OwnerName, " +
-                               "EstateOwnerUNP = @OwnerUNP, " +
-                               "EstateOwnerAdress = @OwnerAdress, " +
-                               "EstateOwnerPhone = @OwnerPhone, " +
+
+                               "OwnerID = @OwnerID, " +
+                               "OwnerName = @OwnerName, " +
+                               "OwnerUNP = @OwnerUNP, " +
+                               "OwnerAdress = @OwnerAdress, " +
+                               "OwnerPhone = @OwnerPhone " +
                                
-                               "WHERE EstateOwnerID = @EstateID", connection))
+                               "WHERE OwnerID = @OwnerID", connection))
                 {
                     updateCommand.Parameters.Clear();
 
+                    updateCommand.Parameters.AddWithValue("@OwnerID", typeof(string)).Value = owner.OwnerID;
                     updateCommand.Parameters.AddWithValue("@OwnerName", typeof(string)).Value = owner.OwnerName;
                     updateCommand.Parameters.AddWithValue("@OwnerUNP", typeof(string)).Value = owner.OwnerUNP;
                     updateCommand.Parameters.AddWithValue("@OwnerAdress", typeof(string)).Value = owner.OwnerAdress;

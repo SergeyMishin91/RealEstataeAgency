@@ -51,18 +51,17 @@
         <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddEstateFunction" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
         <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxAddEstateYear" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
         <TextBox Grid.Row="6" Grid.Column="1" Name="TextBoxAddEstateWall" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <ComboBox Grid.Row="7" Grid.Column="1" IsEditable="True" Name="ComboBoxAddEstateOwner" HorizontalAlignment="Left" 
-                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270" Loaded="ComboBoxAddEstateOwner_Loaded">
-        </ComboBox>
+        <TextBox Grid.Row="7" Grid.Column="1" Name="TextBoxAddEstateOwner" HorizontalAlignment="Left" 
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270">
+        </TextBox>
         <TextBox Grid.Row="8" Grid.Column="1" Name="TextBoxAddEstateSale" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
         <TextBox Grid.Row="9" Grid.Column="1" Name="TextBoxAddEstateDescription" HorizontalAlignment="Left" Height="72" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270" Grid.RowSpan="2"/>
         <StackPanel  Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,10,0">
-            <Button  x:Name="ButtonAddEstate" Content="Добавить" HorizontalAlignment="Left" Margin="20,10,0,15" 
+            <Button  x:Name="ButtonAddEstate" Content="Добавить" HorizontalAlignment="Left" Margin="280,10,0,15" 
                      VerticalAlignment="Top" Width="75" Click="ButtonAddEstate_Click"/>
-            <Button  x:Name="ButtonCancel" Content="Отмена" Margin="205,-35,0,0" VerticalAlignment="Top" 
+            <Button  x:Name="ButtonCancel" Content="Отмена" Margin="380,-35,0,0" VerticalAlignment="Top" 
                      HorizontalAlignment="Left" Width="75" Click="ButtonCancel_Click"/>
-            <Button  x:Name="ButtonClearFields" Content="Очистить" HorizontalAlignment="Left" Margin="111,-35,0,0" 
-                     VerticalAlignment="Top" Width="75" />
+
         </StackPanel>
 
     </Grid>

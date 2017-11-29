@@ -1,17 +1,17 @@
 ﻿using DAL;
 using Model;
+using RealEstateAgency.BuyerChangeWindows;
 using RealEstateAgency.COSChangeWindows;
+using RealEstateAgency.OwnerChangeWindows;
 using Repository;
 using System.Windows;
 using System.Windows.Controls;
-
-
 
 namespace RealEstateAgency
 {
     public partial class MainWindow : Window
     {
-        
+
         private IEstatesRepository estateRepository;
         private IOwnerRepository ownerRepository;
         private IBuyerRepository buyerRepository;
@@ -114,9 +114,7 @@ namespace RealEstateAgency
         }
         #endregion
 
-
-
-
+        #region Actions with Owner
         private void UpdateSelectedOwner()
         {
             ownerRepository = new OwnerRepository();
@@ -127,6 +125,23 @@ namespace RealEstateAgency
             }
         }
 
+        private void changeOwner_Click(object sender, RoutedEventArgs e)
+        {
+            if (showOwner.SelectedItem is Owner)
+            {
+                WindowChangeOwner winChangeOwner = new WindowChangeOwner((Owner)showOwner.SelectedItem);
+                winChangeOwner.ShowDialog();
+
+                UpdateSelectedOwner();
+            }
+            else
+                MessageBox.Show("Объект не выбран. Выберите объект для внесения изменений.");
+        }
+
+
+        #endregion
+
+        #region Actions with Buyer
         private void UpdateSelectedBuyer()
         {
             buyerRepository = new BuyerRepository();
@@ -137,6 +152,41 @@ namespace RealEstateAgency
             }
         }
 
+        private void addBuyer_Click(object sender, RoutedEventArgs e)
+        {
+            WindowAddBuyer winAddBuyer = new WindowAddBuyer();
+            winAddBuyer.ShowDialog();
+
+            UpdateSelectedBuyer();
+        }
+
+        private void changeBuyer_Click(object sender, RoutedEventArgs e)
+        {
+            if (showBuyer.SelectedItem is Buyer)
+            {
+                WindowChangeBuyer winChangeBuyer = new WindowChangeBuyer((Buyer)showBuyer.SelectedItem);
+                winChangeBuyer.ShowDialog();
+
+                UpdateSelectedBuyer();
+            }
+            else
+                MessageBox.Show("Объект не выбран. Выберите объект для внесения изменений.");
+
+        }
+
+        private void deleteBuyer_Click(object sender, RoutedEventArgs e)
+        {
+            if (showBuyer.SelectedItem is Buyer)
+            {
+                buyerRepository.DeleteBuyer((Buyer)showBuyer.SelectedItem);
+                UpdateSelectedBuyer();
+            }
+            else
+                MessageBox.Show("Объект не выбран. Выберите объект для внесения изменений.");
+        }
+        #endregion
+
+        #region Menu Options
         private void FileExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -144,19 +194,24 @@ namespace RealEstateAgency
 
         private void Estates_Click(object sender, RoutedEventArgs e)
         {
-
+            allOptionsTC.SelectedItem = TabItemEstates;
         }
 
         private void Clients_Click(object sender, RoutedEventArgs e)
         {
-
+            allOptionsTC.SelectedItem = TabItemClients;
         }
 
         private void Treaties_Click(object sender, RoutedEventArgs e)
         {
-
+            allOptionsTC.SelectedItem = TabItemTreaties;
         }
 
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Курсовая работа. Выполнил слушатель группы 60322-1 Мишин С.И.");
+        }
+        #endregion
 
     }
 }

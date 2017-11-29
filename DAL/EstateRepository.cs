@@ -40,6 +40,7 @@ namespace DAL
                 using (SqlCommand updateCommand = new SqlCommand("UPDATE dbo.Estate " +
                                "SET " +
 
+                               "EstateID = @EstateID, " +
                                "EstateOwnerID = @EstateOwnerID, " +
                                "EstateFunction = @EstateFunction, " +
                                "EstateName = @EstateName, " +
@@ -51,12 +52,13 @@ namespace DAL
                                "EstateState = @EstateState, " +
                                "EstateOwner = @EstateOwner, " +
                                "EstateCostOfSale =  @EstateCostOfSale, " +
-                               "EstateDescription = @EstateDescription, " +
+                               "EstateDescription = @EstateDescription " +
                                
                                "WHERE EstateID = @EstateID", connection))
                 {
                     updateCommand.Parameters.Clear();
 
+                    updateCommand.Parameters.AddWithValue("@EstateID", typeof(string)).Value = estate.EstateID;
                     updateCommand.Parameters.AddWithValue("@EstateOwnerID", typeof(string)).Value = estate.EstateOwnerID;
                     updateCommand.Parameters.AddWithValue("@EstateFunction", typeof(string)).Value = estate.EstateFunction;
                     updateCommand.Parameters.AddWithValue("@EstateName", typeof(string)).Value = estate.EstateName;
@@ -69,7 +71,7 @@ namespace DAL
                     updateCommand.Parameters.AddWithValue("@EstateOwner", typeof(string)).Value = estate.EstateOwner;
                     updateCommand.Parameters.AddWithValue("@EstateCostOfSale", typeof(string)).Value = estate.EstateCostOfSale;
                     updateCommand.Parameters.AddWithValue("@EstateDescription", typeof(string)).Value = estate.EstateDescription;
-                    //updateCommand.Parameters.AddWithValue("@EstateID", typeof(string)).Value = estate.EstateID;
+                    
 
                     connection.Open();
                     updateCommand.ExecuteNonQuery();
@@ -82,11 +84,11 @@ namespace DAL
         {
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
-
-                using (SqlCommand insertCommand = new SqlCommand("Insert Into dbo.Estate" +
+                
+                using (SqlCommand insertCommand = new SqlCommand("Insert Into dbo.Estate " +
                                "(EstateID, EstateOwnerID, EstateFunction, EstateName, EstateInventoryNumber, " +
                                "EstateSpace, EstateAdress, EstateYear, EstateWall," +
-                               "EstateState, EstateOwner, EstateCostOfSale, EstateDescription) " +
+                               "EstateState, EstateOwner, EstateCostOfSale, EstateDescription ) " +
                                "Values(@EstateID, @EstateOwnerID, @EstateFunction, @EstateName, @EstateInventoryNumber, " +
                                "@EstateSpace, @EstateAdress, @EstateYear, @EstateWall," +
                                "@EstateState, @EstateOwner, @EstateCostOfSale, @EstateDescription)", connection))
@@ -134,18 +136,18 @@ namespace DAL
                         Estate new_estate = new Estate();
 
                         new_estate.EstateID = (Int32)reader.GetValue(0);
-                        new_estate.EstateOwnerID = (Int32)reader.GetValue(2);
-                        new_estate.EstateFunction = (string)reader.GetValue(3);
-                        new_estate.EstateName = (string)reader.GetValue(4);
-                        new_estate.EstateInventoryNumber = (string)reader.GetValue(5);
-                        new_estate.EstateSpace = (double)reader.GetValue(6);
-                        new_estate.EstateAdress = (string)reader.GetValue(7);
-                        new_estate.EstateYear = (Int32)reader.GetValue(8);
-                        new_estate.EstateWall = (string)reader.GetValue(9);
-                        new_estate.EstateState = (string)reader.GetValue(10);
-                        new_estate.EstateOwner = (string)reader.GetValue(11);
-                        new_estate.EstateCostOfSale = (double)reader.GetValue(12);
-                        new_estate.EstateDescription = (string)reader.GetValue(13);
+                        new_estate.EstateOwnerID = (Int32)reader.GetValue(1);
+                        new_estate.EstateFunction = (string)reader.GetValue(2);
+                        new_estate.EstateName = (string)reader.GetValue(3);
+                        new_estate.EstateInventoryNumber = (string)reader.GetValue(4);
+                        new_estate.EstateSpace = (double)reader.GetValue(5);
+                        new_estate.EstateAdress = (string)reader.GetValue(6);
+                        new_estate.EstateYear = (Int32)reader.GetValue(7);
+                        new_estate.EstateWall = (string)reader.GetValue(8);
+                        new_estate.EstateState = (string)reader.GetValue(9);
+                        new_estate.EstateOwner = (string)reader.GetValue(10);
+                        new_estate.EstateCostOfSale = (double)reader.GetValue(11);
+                        new_estate.EstateDescription = (string)reader.GetValue(12);
 
                         _estatesObsColl.Add(new_estate);
                     }

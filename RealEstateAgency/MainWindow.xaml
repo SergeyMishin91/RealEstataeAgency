@@ -11,56 +11,34 @@
         <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Background="White" BorderBrush="Black">
             <MenuItem Header="_Файл">
                 <Separator/>
-                <MenuItem Header="_Закрыть" Click="FileExit_Click"/>
+                <MenuItem Header="_Выход" Click="FileExit_Click"/>
             </MenuItem>
             <MenuItem Header="_Просмотр">
-                <MenuItem Header="_Недвижимость">
-                    <MenuItem Header="_Продажа">
-
-                    </MenuItem>
-                    <MenuItem Header="_Аренда">
-
-                    </MenuItem>
-                </MenuItem>
-
-                <MenuItem Header="_Клиенты">
-                    <MenuItem Header="_Покупатель">
-
-                    </MenuItem>
-                    <MenuItem Header="_Продавец">
-
-                    </MenuItem>
-                    <MenuItem Header="_Арендодатель">
-
-                    </MenuItem>
-                    <MenuItem Header="_Арендатор">
-
-                    </MenuItem>
-                </MenuItem>
-
-                <MenuItem Header="_Договоры">
-                    <MenuItem Header="_Продажа">
-
-                    </MenuItem>
-                    <MenuItem Header="_Аренда">
-
-                    </MenuItem>
-                </MenuItem>
-
+                <MenuItem Header="_Недвижимость" Click="Estates_Click"/>
+                <MenuItem Header="_Клиенты" Click="Clients_Click"/>
+                <MenuItem Header="_Договоры" Click="Treaties_Click"/>
             </MenuItem>
             <MenuItem Header="_Изменить">
-
+                <MenuItem Header="_Недвижимость">
+                    <MenuItem Header="Добавить" Click="addEstate_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Покупатель">
+                    <MenuItem Header="Добавить" Click="addBuyer_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Договор">
+                    <MenuItem Header="Добавить" Click="addContractOfSale_Click"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Настройки">
 
             </MenuItem>
-            <MenuItem Header="_О программе">
+            <MenuItem Header="_О программе" Click="About_Click">
 
             </MenuItem>
         </Menu>
 
         <TabControl Name="allOptionsTC" HorizontalAlignment="Left" VerticalAlignment="Top" Height="520" Width="970">
-            <TabItem Header="Недвижимость">
+            <TabItem Header="Недвижимость" Name="TabItemEstates">
                 <Grid DockPanel.Dock="Left" Background="AliceBlue">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="39*"/>
@@ -115,7 +93,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Клиенты">
+            <TabItem Header="Клиенты" Name="TabItemClients">
                 <Grid DockPanel.Dock="Left" Background="AliceBlue">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -128,8 +106,8 @@
                         <ColumnDefinition Width="323*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Продавцы:" Margin="10,10,189,30" Grid.Row="0" Grid.Column="0"/>
-                    <ListBox Name="showOwner" HorizontalAlignment="Left" Height="256" Margin="10,41,0,0" 
-                        VerticalAlignment="Top" Width="264" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                    <ListBox Name="showOwner" HorizontalAlignment="Left" Height="255" Margin="10,41,0,0" 
+                        VerticalAlignment="Top" Width="400" Grid.Column="0" Grid.RowSpan="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -140,26 +118,27 @@
                     </ListBox>
 
                     <Label Content="Покупатели:" Margin="10,10,189,30" Grid.Row="0" Grid.Column="1"/>
-                    <ListBox Name="showBuyer" HorizontalAlignment="Left" Height="256" Margin="10,41,0,0" 
-                        VerticalAlignment="Top" Width="277" Grid.Column="1" SelectionChanged="estateSense_SelectionChanged" Grid.RowSpan="3">
+                    <ListBox Name="showBuyer" HorizontalAlignment="Left" Height="255" Margin="10,41,0,0" 
+                        VerticalAlignment="Top" Width="400" Grid.Column="1" SelectionChanged="estateSense_SelectionChanged" Grid.RowSpan="2">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Padding="5,0,5,0" Text="{Binding EstateBuyerName}" />
+                                    <TextBlock Padding="5,0,5,0" Text="{Binding BuyerName}"/>
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
 
                     </ListBox>
 
-                    <Button Name="addOwner" Content="Добавить" Grid.Row="2" Grid.Column="1" Margin="160,130,218,14" Click="addEstate_Click"/>
-                    <Button Name="changeOwner" Content="Изменить" Grid.Row="2" Grid.Column="1" Margin="234,130,144,14" Click="changeEstate_Click"/>
-                    <Button Name="deleteOwner" Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="311,130,62,14" Click="deleteEstate_Click"/>
+                    <Button Name="addBuyer" Content="Добавить" Grid.Row="2" Grid.Column="1" Margin="160,130,218,14" Click="addBuyer_Click"/>
+                    <Button Name="changeBuyer" Content="Изменить" Grid.Row="2" Grid.Column="1" Margin="234,130,144,14" Click="changeBuyer_Click"/>
+                    <Button Name="deleteBuyer" Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="311,130,62,14" Click="deleteBuyer_Click"/>
+                    <Button x:Name="changeOwner" Content="Изменить" Grid.Row="2" Margin="27,130,431,14" Click="changeOwner_Click"/>
 
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Договоры">
+            <TabItem Header="Договоры" Name="TabItemTreaties">
                 <ListView Name="contractOfSaleSense" HorizontalAlignment="Left" Height="488" Margin="10,0,0,0" 
                         VerticalAlignment="Top" Width="950" Grid.Row="1" Grid.Column="0">
                     <ListView.ContextMenu>

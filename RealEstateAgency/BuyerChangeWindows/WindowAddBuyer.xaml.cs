@@ -31,21 +31,10 @@ namespace RealEstateAgency.BuyerChangeWindows
             _newBuyer.BuyerUNP = Int32.Parse(TextBoxAddBuyerUNP.Text);
             _newBuyer.BuyerPhone = TextBoxAddBuyerPhone.Text;
             _newBuyer.BuyerRequest = TextBoxAddBuyerRequest.Text;
-            //foreach (ContractOfSale cos in new ContractOfSaleRepository().GetAll())
-            //{
-            //    if (cos.ContractOfSaleID == 0)
-            //        _newBuyer.ContractOfSaleID = 0;
-            //    if (cos.ContractOfSaleID > 0)
-            //    {
-            //        int currID = 0;
-            //        foreach (ContractOfSale cosTwo in new ContractOfSaleRepository().GetAll())
-            //            currID++;
-            //        _newBuyer.ContractOfSaleID = currID;
-            //    }
-            //}
         
             buyerRepository.AddBuyer(_newBuyer);
             MessageBox.Show("Данные добавлены.");
+            this.Close();
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)

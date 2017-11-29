@@ -35,23 +35,21 @@ namespace RealEstateAgency
             _newEstate.EstateFunction = TextBoxAddEstateFunction.Text;
             _newEstate.EstateYear = int.Parse(TextBoxAddEstateYear.Text);
             _newEstate.EstateWall = TextBoxAddEstateWall.Text;
-            _newEstate.EstateState = "не продан";
-            _newEstate.EstateOwner = ComboBoxAddEstateOwner.SelectedItem.ToString();
+            _newEstate.EstateState = "Не продан";
+            _newEstate.EstateOwner = TextBoxAddEstateOwner.Text;
             _newEstate.EstateCostOfSale = double.Parse(TextBoxAddEstateSale.Text);
             _newEstate.EstateDescription = TextBoxAddEstateDescription.Text;
-
             foreach (Owner owner in new OwnerRepository().GetAll())
             {
-                if (_newEstate.EstateOwner == owner.OwnerName)
+                if (_newEstate.EstateOwner == owner.OwnerName.Trim())
                     _newEstate.EstateOwnerID = owner.OwnerID;
                 else
                 {
-                    WindowAddOwner winAddOwner = new WindowAddOwner(); 
+                    WindowAddOwner winAddOwner = new WindowAddOwner(_newEstate.EstateOwner);
                     winAddOwner.ShowDialog();
                 }
+
             }
-
-
 
             estateRepository.AddEstate(_newEstate);
 
@@ -64,14 +62,14 @@ namespace RealEstateAgency
             this.Close();
         }
 
-        private void ComboBoxAddEstateOwner_Loaded(object sender, RoutedEventArgs e)
-        {
-            List<string> _ownerNamesList = new List<string>();
+        //private void ComboBoxAddEstateOwner_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    List<string> _ownerNamesList = new List<string>();
 
-            foreach (Owner owner in new OwnerRepository().GetAll())
-                _ownerNamesList.Add(owner.OwnerName);
+        //    foreach (Owner owner in new OwnerRepository().GetAll())
+        //        _ownerNamesList.Add(owner.OwnerName);
 
-            ComboBoxAddEstateOwner.ItemsSource = _ownerNamesList;
-        }
+        //    ComboBoxAddEstateOwner.ItemsSource = _ownerNamesList;
+        //}
     }
 }

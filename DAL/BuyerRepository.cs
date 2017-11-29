@@ -66,16 +66,19 @@ namespace DAL
 
                 using (SqlCommand updateCommand = new SqlCommand("UPDATE dbo.Buyer " +
                                "SET " +
+
+                               "BuyerID = @BuyerID, " +
                                "BuyerName = @BuyerName, " +
                                "BuyerAdress = @BuyerAdress, " +
                                "BuyerUNP = @BuyerUNP, " +
                                "BuyerPhone = @BuyerPhone, " +
-                               "BuyerRequest = @BuyerRequest, " +
+                               "BuyerRequest = @BuyerRequest " +
 
                                "WHERE BuyerID = @BuyerID", connection))
                 {
                     updateCommand.Parameters.Clear();
 
+                    updateCommand.Parameters.AddWithValue("@BuyerID", typeof(string)).Value = buyer.BuyerID;
                     updateCommand.Parameters.AddWithValue("@BuyerName", typeof(string)).Value = buyer.BuyerName;
                     updateCommand.Parameters.AddWithValue("@BuyerAdress", typeof(string)).Value = buyer.BuyerAdress;
                     updateCommand.Parameters.AddWithValue("@BuyerUNP", typeof(string)).Value = buyer.BuyerUNP;

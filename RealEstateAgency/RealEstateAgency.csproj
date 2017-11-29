@@ -57,8 +57,14 @@
     <Compile Include="BuyerChangeWindows\WindowAddBuyer.xaml.cs">
       <DependentUpon>WindowAddBuyer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuyerChangeWindows\WindowChangeBuyer.xaml.cs">
+      <DependentUpon>WindowChangeBuyer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="COSChangeWindows\WindowAddContractOfSale.xaml.cs">
       <DependentUpon>WindowAddContractOfSale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="COSChangeWindows\WindowChangeContractOfSale.xaml.cs">
+      <DependentUpon>WindowChangeContractOfSale.xaml</DependentUpon>
     </Compile>
     <Compile Include="EstateChangeWindows\WindowAddEstate.xaml.cs">
       <DependentUpon>WindowAddEstate.xaml</DependentUpon>
@@ -70,7 +76,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BuyerChangeWindows\WindowChangeBuyer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="COSChangeWindows\WindowAddContractOfSale.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="COSChangeWindows\WindowChangeContractOfSale.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -98,10 +112,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="OwnerChangeWindows\WindowChangeOwner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OwnerChangeWindows\WindowAddOwner.xaml.cs">
       <DependentUpon>WindowAddOwner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OwnerChangeWindows\WindowChangeOwner.xaml.cs">
+      <DependentUpon>WindowChangeOwner.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

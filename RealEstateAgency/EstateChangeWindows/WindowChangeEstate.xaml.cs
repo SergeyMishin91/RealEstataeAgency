@@ -1,19 +1,8 @@
 ﻿using Repository;
 using DAL;
 using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace RealEstateAgency
 {
@@ -42,7 +31,6 @@ namespace RealEstateAgency
             TextBoxChangeEstateFunction.Text = estate.EstateFunction;
             TextBoxChangeEstateYear.Text = estate.EstateYear.ToString();
             TextBoxChangeEstateWall.Text = estate.EstateWall;
-            ComboBoxChangeEstateState.Text = estate.EstateState;
             TextBoxChangeEstateOwner.Text = estate.EstateOwner;
             TextBoxChangeEstateCostOfSale.Text = estate.EstateCostOfSale.ToString();
             TextBoxChangeEstateDescription.Text = estate.EstateDescription;
@@ -58,7 +46,7 @@ namespace RealEstateAgency
             _updateEstate.EstateFunction = TextBoxChangeEstateFunction.Text;
             _updateEstate.EstateYear = int.Parse(TextBoxChangeEstateYear.Text);
             _updateEstate.EstateWall = TextBoxChangeEstateWall.Text;
-            _updateEstate.EstateState = ComboBoxChangeEstateState.Text;
+            _updateEstate.EstateState = "Не продан";
             _updateEstate.EstateOwner = TextBoxChangeEstateOwner.Text;
             _updateEstate.EstateCostOfSale = double.Parse(TextBoxChangeEstateCostOfSale.Text);
             _updateEstate.EstateDescription = TextBoxChangeEstateDescription.Text;

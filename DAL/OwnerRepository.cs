@@ -17,13 +17,13 @@ namespace DAL
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
 
-                using (SqlCommand insertCommand = new SqlCommand("Insert Into dbo.Owner" +
-                               "(OwnerID, OwnerName, OwnerUNP, OwnerAdress, OwnerPhone)" +
+                using (SqlCommand insertCommand = new SqlCommand("INSERT INTO Owner " +
+                               "(OwnerID, OwnerName, OwnerUNP, OwnerAdress, OwnerPhone) " +
                                "Values(@OwnerID, @OwnerName, @OwnerUNP, @OwnerAdress, @OwnerPhone)", connection))
                 {
 
-                    foreach (Owner _owner in _ownersCollection)
-                    {
+                    //foreach (Owner _owner in _ownersCollection)
+                    //{
                         insertCommand.Parameters.Clear();
 
                         insertCommand.Parameters.AddWithValue("@OwnerID", typeof(string)).Value = owner.OwnerID;
@@ -31,7 +31,7 @@ namespace DAL
                         insertCommand.Parameters.AddWithValue("@OwnerUNP", typeof(string)).Value = owner.OwnerUNP;
                         insertCommand.Parameters.AddWithValue("@OwnerAdress", typeof(string)).Value = owner.OwnerAdress;
                         insertCommand.Parameters.AddWithValue("@OwnerPhone", typeof(string)).Value = owner.OwnerPhone;
-                    }
+                    //}
                     connection.Open();
                     insertCommand.ExecuteNonQuery();
                     connection.Close();
@@ -63,7 +63,7 @@ namespace DAL
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
 
-                using (SqlCommand updateCommand = new SqlCommand("UPDATE dbo.Owner " +
+                using (SqlCommand updateCommand = new SqlCommand("UPDATE Owner " +
                                "SET " +
 
                                "OwnerID = @OwnerID, " +

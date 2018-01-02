@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RealEstateAgency.COSChangeWindows"
+        xmlns:local="clr-namespace:Model;assembly=Model"
         mc:Ignorable="d"
-        Title="Добавление договора" Height="300" Width="310">
+        Title="Добавление договора" Height="420" Width="350"
+        WindowStartupLocation="CenterScreen">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -30,28 +32,46 @@
         <Label Grid.Row="4" x:Name="LabelAddCOSCost" Content="Цена" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
         <Label Grid.Row="5" x:Name="LabelAddCOSEstate" Content="Инвентарный №" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
 
-        <TextBox Grid.Column="1" Name="TextBoxAddCOSNumber" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"/>
-        <DatePicker Grid.Row="1" Grid.Column="1" Name="DPAddCOSDate" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"/>
-        <ComboBox Grid.Row="2" Grid.Column="1" Name="ComboBoxAddCOSOwner" HorizontalAlignment="Left" Height="26" 
-                  Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
-                  Loaded="ComboBoxAddCOSOwner_Loaded">
+        <TextBox Grid.Column="1" Name="TextBoxAddCOSNumber" HorizontalAlignment="Left" Height="26" 
+                 Margin="5,5,0,0" VerticalAlignment="Top" Width="190"
+                 Text="{Binding ContractOfSaleNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=TextBoxAddCOSNumber, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
 
-        </ComboBox>
+        <DatePicker Grid.Row="1" Grid.Column="1" Name="DPAddCOSDate" HorizontalAlignment="Left" 
+                    Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"/>
+
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="ComboBoxAddCOSOwner" HorizontalAlignment="Left" Height="26" 
+                  Margin="5,5,0,0" VerticalAlignment="Top" Width="190"
+                  Loaded="ComboBoxAddCOSOwner_Loaded"
+                  Text="{Binding ContractOfSaleOwner, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxAddCOSOwner, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="2"/>
+
         <ComboBox Grid.Row="3" IsEditable="True" Grid.Column="1" Name="ComboBoxAddCOSBuyer" HorizontalAlignment="Left" 
-                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
-                  Loaded="ComboBoxAddCOSBuyer_Loaded"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddCOSCost" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" 
-                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"/>
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="190"
+                  Loaded="ComboBoxAddCOSBuyer_Loaded"
+                  Text="{Binding ContractOfSaleBuyer, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxAddCOSBuyer, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="3"/>
+        
+        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddCOSCost" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" 
+                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="190"
+                 Text="{Binding ContractOfSaleCost, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=TextBoxAddCOSCost, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="4"/>
+        
         <ComboBox Grid.Row="5" Grid.Column="1" Name="ComboBoxAddCOSEstateInventoryNumber" HorizontalAlignment="Left" 
-                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
-                  Loaded="ComboBoxAddCOSEstateInventoryNumber_Loaded"/>
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="190"
+                  Loaded="ComboBoxAddCOSEstateInventoryNumber_Loaded"
+                  Text="{Binding ContractOfSaleEstateInventoryNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxAddCOSEstateInventoryNumber, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="5"/>
 
         <StackPanel  Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,10,0">
-            <Button  x:Name="ButtonAddCOS" Content="Добавить" HorizontalAlignment="Left" Margin="20,10,0,15" 
+            <Button  x:Name="ButtonAddCOS" Content="Добавить" HorizontalAlignment="Left" Margin="155,10,0,15" 
                      VerticalAlignment="Top" Width="75" Click="ButtonAddCOS_Click"/>
-            <Button  x:Name="ButtonClearFields" Content="Очистить" HorizontalAlignment="Left" Margin="111,-35,0,0" 
-                     VerticalAlignment="Top" Width="75" />
-            <Button  x:Name="ButtonCancel" Content="Отмена" Margin="205,-35,0,0" VerticalAlignment="Top" Grid.Column="1" 
+            <Button  x:Name="ButtonCancel" Content="Отмена" Margin="245,-35,0,0" VerticalAlignment="Top" Grid.Column="1" 
                      HorizontalAlignment="Left" Width="75" Click="ButtonCancel_Click"/>
         </StackPanel>
 

@@ -12,49 +12,77 @@ namespace RealEstateAgency.COSChangeWindows
 
     public partial class WindowAddContractOfSale : Window
     {
+        ContractOfSale _newContractOfSale = new ContractOfSale();
+
         public WindowAddContractOfSale()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            this.DataContext = _newContractOfSale;
         }
 
         private IContractOfSaleRepository cosRepository = new ContractOfSaleRepository();
+        private IEstatesRepository estateRepository = new EstateRepository();
 
-        ContractOfSale NewContractOfSale = new ContractOfSale();
+
         WindowAddBuyer winAddBuyer = new WindowAddBuyer();
+
 
         private void ButtonAddCOS_Click(object sender, RoutedEventArgs e)
         {
-            int _idCounter = 1;
-            foreach (ContractOfSale cos in cosRepository.GetAll())
+            try
             {
-                _idCounter++;
-            }
+                if (!string.IsNullOrWhiteSpace(_newContractOfSale.Error))
+                    return;
 
-            NewContractOfSale.ContractOfSaleID = _idCounter++;
-            NewContractOfSale.ContractOfSaleNumber = TextBoxAddCOSNumber.Text;
-            NewContractOfSale.ContractOfSaleDate = DateTime.Parse(DPAddCOSDate.Text);
-            NewContractOfSale.ContractOfSaleOwner = ComboBoxAddCOSOwner.SelectedItem.ToString(); 
-            NewContractOfSale.ContractOfSaleBuyer = ComboBoxAddCOSBuyer.SelectedItem.ToString();
-            NewContractOfSale.ContractOfSaleCost = double.Parse(TextBoxAddCOSCost.Text);
-            NewContractOfSale.ContractOfSaleEstateInventoryNumber = ComboBoxAddCOSEstateInventoryNumber.SelectedItem.ToString();
-            //foreach (Owner owner in new OwnerRepository().GetAll())
-            //    if (NewContractOfSale.ContractOfSaleOwner == owner.OwnerName)
-            //        NewContractOfSale.ContractOfSaleOwnerID = owner.OwnerID;
+                bool beBuyer = true;
+                int _idCounter = 1;
+                foreach (ContractOfSale cos in cosRepository.GetAll())
+                {
+                    _idCounter++;
+                }
 
-            foreach (Buyer buyer in new BuyerRepository().GetAll())
-            {
-                if (NewContractOfSale.ContractOfSaleBuyer == buyer.BuyerName)
-                    NewContractOfSale.ContractOfSaleBuyerID = buyer.BuyerID;
-                else winAddBuyer.ShowDialog();
-            }
+                _newContractOfSale.ContractOfSaleID = _idCounter++;
+                _newContractOfSale.ContractOfSaleNumber = TextBoxAddCOSNumber.Text;
+                _newContractOfSale.ContractOfSaleDate = DateTime.Parse(DPAddCOSDate.Text);
+                _newContractOfSale.ContractOfSaleOwner = ComboBoxAddCOSOwner.SelectedItem.ToString().Trim();
+                _newContractOfSale.ContractOfSaleBuyer = ComboBoxAddCOSBuyer.Text.Trim();
 
-            foreach (Estate estate in new EstateRepository().GetAll())
-                if (NewContractOfSale.ContractOfSaleEstateInventoryNumber == estate.EstateInventoryNumber)
-                    NewContractOfSale.ContractOfSaleEstateID = estate.EstateID;
+                _newContractOfSale.ContractOfSaleCost = double.Parse(TextBoxAddCOSCost.Text);
+                _newContractOfSale.ContractOfSaleEstateInventoryNumber = ComboBoxAddCOSEstateInventoryNumber.SelectedItem.ToString().Trim();
+
+                foreach (Buyer buyer in new BuyerRepository().GetAll())
+                {
+                    if (_newContractOfSale.ContractOfSaleBuyer.Trim() == buyer.BuyerName.Trim())
+                    {
+                        beBuyer = true;
+                        _newContractOfSale.ContractOfSaleBuyerID = buyer.BuyerID;
+                        break;
+                    }
+                    else
+                        beBuyer = false; 
+                }
+
+                if (beBuyer == false)
+                    winAddBuyer.ShowDialog();
+
+                foreach (Estate estate in new EstateRepository().GetAll())
+                    if (_newContractOfSale.ContractOfSaleEstateInventoryNumber.Trim() == estate.EstateInventoryNumber.Trim())
+                    {
+                        _newContractOfSale.ContractOfSaleEstateID = estate.EstateID;
+                        estate.EstateState = "Продан";
+                        estateRepository.UpdateEstate(estate);
+                        break;
+                    }
+
+                cosRepository.AddContractOfSale(_newContractOfSale);
             
-            cosRepository.AddContractOfSale(NewContractOfSale);
-            MessageBox.Show("Данные добавлены.");
-            this.Close();
+                MessageBox.Show("Данные добавлены.");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
@@ -66,11 +94,19 @@ namespace RealEstateAgency.COSChangeWindows
         {
             List<string> _ownerNamesList = new List<string>();
 
-            foreach (Owner owner in new OwnerRepository().GetAll())
-                _ownerNamesList.Add(owner.OwnerName);
-
+            foreach (Estate estate in new EstateRepository().GetAll())
+            {
+                if (estate.EstateState.Trim() == "Не продан")
+                {
+                    foreach (Owner owner in new OwnerRepository().GetAll())
+                        if (estate.EstateOwnerID == owner.OwnerID && !_ownerNamesList.Contains(owner.OwnerName.Trim()))
+                        {
+                            _ownerNamesList.Add(owner.OwnerName.Trim());
+                            break;
+                        }
+                }
+            }
             ComboBoxAddCOSOwner.ItemsSource = _ownerNamesList;
-
         }
 
         private void ComboBoxAddCOSBuyer_Loaded(object sender, RoutedEventArgs e)
@@ -78,7 +114,7 @@ namespace RealEstateAgency.COSChangeWindows
             List<string> _buyerNamesList = new List<string>();
 
             foreach (Buyer buyer in new BuyerRepository().GetAll())
-                _buyerNamesList.Add(buyer.BuyerName);
+                _buyerNamesList.Add(buyer.BuyerName.Trim());
 
             ComboBoxAddCOSBuyer.ItemsSource = _buyerNamesList;
         }
@@ -88,7 +124,8 @@ namespace RealEstateAgency.COSChangeWindows
             List<string> _ownerEstateInventoryNumberList = new List<string>();
 
             foreach (Estate estate in new EstateRepository().GetAll())
-                _ownerEstateInventoryNumberList.Add(estate.EstateInventoryNumber);
+                if (estate.EstateState.Trim() == "Не продан")
+                    _ownerEstateInventoryNumberList.Add(estate.EstateInventoryNumber.Trim());
             
             ComboBoxAddCOSEstateInventoryNumber.ItemsSource = _ownerEstateInventoryNumberList;
         }

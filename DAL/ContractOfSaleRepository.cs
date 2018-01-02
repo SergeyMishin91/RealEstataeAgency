@@ -17,14 +17,14 @@ namespace DAL
 
             using (SqlConnection connection = new SqlConnection(Settings.Default.DBConnect))
             {
-                using (SqlCommand insertCommand = new SqlCommand("INSERT INTO ContractOfSale" +
-                               "(ContractOfSaleID, ContractOfSaleBuyerID, ContractOfSaleOwnerID, ContractOfSaleEstateID, " +
+                using (SqlCommand insertCommand = new SqlCommand("INSERT INTO ContractOfSale " +
+                               "(ContractOfSaleID, ContractOfSaleBuyerID, ContractOfSaleEstateID, " +
                                "ContractOfSaleNumber, ContractOfSaleDate, ContractOfSaleOwner, " +
                                "ContractOfSaleBuyer, ContractOfSaleCost, ContractOfSaleEstateInventoryNumber) " +
-                               "Values(@ContractOfSaleID, @ContractOfSaleBuyerID, @ContractOfSaleOwnerID, @ContractOfSaleEstateID, " +
+                               "Values(@ContractOfSaleID, @ContractOfSaleBuyerID, @ContractOfSaleEstateID, " +
                                "@ContractOfSaleNumber, @ContractOfSaleDate, " +
                                "@ContractOfSaleOwner, @ContractOfSaleBuyer, " +
-                               "@ContractOfSaleCost, @ContractOfSaleEstateInventoryNumber)", connection))
+                               "@ContractOfSaleCost, @ContractOfSaleEstateInventoryNumber);", connection))
                 {
 
                     insertCommand.Parameters.Clear();

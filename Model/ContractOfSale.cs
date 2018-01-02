@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Model
 {
-    public class ContractOfSale: INotifyPropertyChanged
+    public class ContractOfSale: INotifyPropertyChanged, IDataErrorInfo
     {
         #region ContractOfSale fields
         private int _contractOfSaleID;
@@ -16,6 +16,8 @@ namespace Model
         private string _contractOfSaleBuyer;
         private double _contractOfSaleCost;
         private string _contractOfSaleEstateInventoryNumber;
+
+        private string _error = null;
         #endregion
 
         #region ContractOfSale properties
@@ -122,10 +124,72 @@ namespace Model
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         internal void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #region Contract of Sale Validation
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case nameof(ContractOfSaleNumber):
+                        _error = ValidateStringValue(ContractOfSaleNumber);
+                        break;
+                    case nameof(ContractOfSaleDate):
+                        _error = ValidateStringValue(ContractOfSaleDate.ToString());
+                        break;
+                    case nameof(ContractOfSaleOwner):
+                        _error = ValidateStringValue(ContractOfSaleOwner);
+                        break;
+                    case nameof(ContractOfSaleBuyer):
+                        _error = ValidateStringValue(ContractOfSaleBuyer);
+                        break;
+                    case nameof(ContractOfSaleCost):
+                        _error = ValidationCost(ContractOfSaleCost);
+                        break;
+                    case nameof(ContractOfSaleEstateInventoryNumber):
+                        _error = ValidateStringValue(ContractOfSaleEstateInventoryNumber);
+                        break;
+                }
+                return _error;
+            }
+        }
+
+        private string ValidationCost(double cost)
+        {
+            if (cost < 1)
+                return "Недопустимое значение";
+            return null;
+        }
+
+        private string ValidateStringValue(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return "Строка не может быть пустой";
+            return null;
+        }
+
+        public string Error { get { return _error; } }
+        #endregion
+
+        public Estate Estate
+        {
+            get => default(Estate);
+            set
+            {
+            }
+        }
+
+        public Buyer Buyer
+        {
+            get => default(Buyer);
+            set
+            {
+            }
         }
     }
 }

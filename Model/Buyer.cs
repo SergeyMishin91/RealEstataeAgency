@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Model
 {
-    public class Buyer : INotifyPropertyChanged
+    public class Buyer : INotifyPropertyChanged, IDataErrorInfo
     {
         #region Buyer fields
         private int _buyerID;
@@ -12,6 +13,8 @@ namespace Model
         private int _buyerUNP;
         private string _buyerPhone;
         private string _buyerRequest;
+
+        private string _error = null;
         #endregion
 
         #region Buyer properties
@@ -80,6 +83,7 @@ namespace Model
                 OnPropertyChanged();
             }
         }
+
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -87,5 +91,49 @@ namespace Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region BuyerValidation
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case nameof(BuyerName):
+                        _error = ValidateStringValue(BuyerName);
+                        break;
+                    case nameof(BuyerAdress):
+                        _error = ValidateStringValue(BuyerAdress);
+                        break;
+                    case nameof(BuyerPhone):
+                        _error = ValidateStringValue(BuyerPhone);
+                        break;
+                    case nameof(BuyerRequest):
+                        _error = ValidateStringValue(BuyerRequest);
+                        break;
+                    case nameof(BuyerUNP):
+                        _error = ValidationBuyerUNP(BuyerUNP);
+                        break;
+                }
+                return _error;
+            }
+        }
+
+        private string ValidationBuyerUNP(int buyerUNP)
+        {
+            if (buyerUNP > 999999999 || buyerUNP < 100000000)
+                return "УНП состоит из 9 цифр";
+            return null;
+        }
+
+        private string ValidateStringValue(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return "Строка не может быть пустой";
+            return null;
+        }
+
+        public string Error { get { return _error; } }
+        #endregion
     }
 }

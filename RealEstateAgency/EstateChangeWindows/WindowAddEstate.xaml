@@ -2,11 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RealEstateAgency"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"      
+        xmlns:local="clr-namespace:Model;assembly=Model"
         mc:Ignorable="d"
-        Title="Добавление объекта недвижимости" Height="550" Width="500"
+        Title="Добавление объекта недвижимости" Height="700" Width="500"
         WindowStartupLocation="CenterScreen">
+
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +24,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -41,21 +42,84 @@
         <Label Grid.Row="8" x:Name="LabelAddEstateDeal" Content="Желаемая цена продажи" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
         <Label Grid.Row="9" x:Name="LabelAddEstateDescription" Content="Краткое описание" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
 
-        <ComboBox Grid.Column="1" Name="ComboBoxAddEstateName" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270">
+        <ComboBox Grid.Column="1" Name="ComboBoxAddEstateName" HorizontalAlignment="Left" 
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270"
+                  Text="{Binding EstateName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="Капитальное строение"/>
             <ComboBoxItem Content="Изолированное помещение"/>
         </ComboBox>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxAddEstateInventoryNumber" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxAddEstateSpace" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxAddEstateAdress" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddEstateFunction" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxAddEstateYear" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Name="TextBoxAddEstateWall" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="7" Grid.Column="1" Name="TextBoxAddEstateOwner" HorizontalAlignment="Left" 
-                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270">
-        </TextBox>
-        <TextBox Grid.Row="8" Grid.Column="1" Name="TextBoxAddEstateSale" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="9" Grid.Column="1" Name="TextBoxAddEstateDescription" HorizontalAlignment="Left" Height="72" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270" Grid.RowSpan="2"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxAddEstateName, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxAddEstateInventoryNumber" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateInventoryNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red" Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="1"
+            Content="{Binding ElementName=TextBoxAddEstateInventoryNumber, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+
+        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxAddEstateSpace" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateSpace, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="2"
+            Content="{Binding ElementName=TextBoxAddEstateSpace, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+
+        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxAddEstateAdress" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateAdress, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="3"
+            Content="{Binding ElementName=TextBoxAddEstateAdress, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <!--<TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxAddEstateFunction" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"-->
+        <ComboBox Grid.Row="4" Grid.Column="1" Name="ComboBoxAddEstateFunction" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateFunction, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="Производственное"/>
+            <ComboBoxItem Content="Торговое"/>
+            <ComboBoxItem Content="Складское"/>
+            <ComboBoxItem Content="Общепита"/>
+            <ComboBoxItem Content="Коммунально-бытовое"/>
+            <ComboBoxItem Content="Меицинское"/>
+            <ComboBoxItem Content="Офисное"/>
+            <ComboBoxItem Content="Спортивное"/>
+            <ComboBoxItem Content="Образовательное"/>
+            <ComboBoxItem Content="Свободного назначения"/>
+        </ComboBox>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="4"
+            Content="{Binding ElementName=ComboBoxAddEstateFunction, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxAddEstateYear" 
+                 HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateYear, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="5"
+            Content="{Binding ElementName=TextBoxAddEstateYear, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <TextBox Grid.Row="6" Grid.Column="1" Name="TextBoxAddEstateWall" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateWall, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="6"
+            Content="{Binding ElementName=TextBoxAddEstateWall, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <ComboBox IsEditable="True" Loaded="ComboBoxAddEstateOwner_Loaded" Grid.Row="7" Grid.Column="1" Name="ComboBoxAddEstateOwner" HorizontalAlignment="Left" 
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateOwner, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="7"
+            Content="{Binding ElementName=TextBoxAddEstateOwner, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <TextBox Grid.Row="8" Grid.Column="1" Name="TextBoxAddEstateSale" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateCostOfSale, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="8"
+            Content="{Binding ElementName=TextBoxAddEstateSale, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <TextBox Grid.Row="9" Grid.Column="1" Name="TextBoxAddEstateDescription" HorizontalAlignment="Left" 
+                 Height="72" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Grid.RowSpan="2"
+                 Text="{Binding EstateDescription, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,22,20,9" FontSize="11" Grid.Row="10"
+            Content="{Binding ElementName=TextBoxAddEstateDescription, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+
         <StackPanel  Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,10,0">
             <Button  x:Name="ButtonAddEstate" Content="Добавить" HorizontalAlignment="Left" Margin="280,10,0,15" 
                      VerticalAlignment="Top" Width="75" Click="ButtonAddEstate_Click"/>

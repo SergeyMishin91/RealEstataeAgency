@@ -3,12 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RealEstateAgency"
+        xmlns:local="clr-namespace:Model;assembly=Model"
         mc:Ignorable="d"
-        Title="Изменение данных" Height="550" Width="500"
+        Title="Изменение данных" Height="700" Width="500"
         WindowStartupLocation="CenterScreen">
 
-    <Grid>
+    <Window.Resources>
+        <local:Estate x:Key="DataContext"/>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource DataContext}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -22,7 +26,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -41,27 +44,87 @@
         <Label Grid.Row="8" x:Name="LabelChangeEstateDeal" Content="Желаемая цена продажи" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
         <Label Grid.Row="9" x:Name="LabelChangeEstateDescription" Content="Краткое описание" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="180"/>
 
-        <ComboBox Grid.Column="1" Name="ComboBoxChangeEstateName" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270">
+        <ComboBox Grid.Column="1" Name="ComboBoxChangeEstateName" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270"
+                  Text="{Binding EstateName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="Капитальное строение"/>
             <ComboBoxItem Content="Изолированное помещение"/>
         </ComboBox>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxChangeEstateInventoryNumber" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxChangeEstateSpace" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxChangeEstateAdress" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxChangeEstateFunction" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxChangeEstateYear" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Name="TextBoxChangeEstateWall" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxAddEstateName, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+        
+        <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxChangeEstateInventoryNumber" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateInventoryNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red" Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="1"
+            Content="{Binding ElementName=TextBoxChangeEstateInventoryNumber, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+        
+        <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxChangeEstateSpace" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateSpace, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="2"
+            Content="{Binding ElementName=TextBoxChangeEstateSpace, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+        
+        <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxChangeEstateAdress" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateAdress, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="3"
+            Content="{Binding ElementName=TextBoxChangeEstateAdress, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+        
+        <!--<TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxChangeEstateFunction" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"-->
+        <ComboBox Grid.Row="4" Grid.Column="1" Name="ComboBoxChangeEstateFunction" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateFunction, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="Производственное"/>
+            <ComboBoxItem Content="Торговое"/>
+            <ComboBoxItem Content="Складское"/>
+            <ComboBoxItem Content="Общепита"/>
+            <ComboBoxItem Content="Коммунально-бытовое"/>
+            <ComboBoxItem Content="Меицинское"/>
+            <ComboBoxItem Content="Офисное"/>
+            <ComboBoxItem Content="Спортивное"/>
+            <ComboBoxItem Content="Образовательное"/>
+            <ComboBoxItem Content="Свободного назначения"/>
+        </ComboBox>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="4"
+            Content="{Binding ElementName=ComboBoxChangeEstateFunction, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+        
+        <TextBox Grid.Row="5" Grid.Column="1" Name="TextBoxChangeEstateYear" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateYear, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="5"
+            Content="{Binding ElementName=TextBoxChangeEstateYear, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+        
+        <TextBox Grid.Row="6" Grid.Column="1" Name="TextBoxChangeEstateWall" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateWall, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="6"
+            Content="{Binding ElementName=TextBoxChangeEstateWall, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
         <TextBox Grid.Row="7" Grid.Column="1" Name="TextBoxChangeEstateOwner" HorizontalAlignment="Left" 
-                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270">
-        </TextBox>
-        <TextBox Grid.Row="8" Grid.Column="1" Name="TextBoxChangeEstateCostOfSale" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270"/>
-        <TextBox Grid.Row="9" Grid.Column="1" Name="TextBoxChangeEstateDescription" HorizontalAlignment="Left" Height="72" Margin="5,5,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="270" Grid.RowSpan="2"/>
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateOwner, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="7"
+            Content="{Binding ElementName=TextBoxChangeEstateOwner, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+
+        <TextBox Grid.Row="8" Grid.Column="1" Name="TextBoxChangeEstateCostOfSale" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270"
+                 Text="{Binding EstateCostOfSale, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,20,0" FontSize="11" Grid.Row="8"
+            Content="{Binding ElementName=TextBoxChangeEstateCostOfSale, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+        
+        <TextBox Grid.Row="9" Grid.Column="1" Name="TextBoxChangeEstateDescription" HorizontalAlignment="Left" 
+                 Height="72" Margin="5,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Grid.RowSpan="2"
+                 Text="{Binding EstateDescription, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,22,20,9" FontSize="11" Grid.Row="10"
+            Content="{Binding ElementName=TextBoxChangeEstateDescription, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+        
+        
         <StackPanel  Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,10,0">
             <Button  x:Name="ButtonChangeEstate" Content="Сохранить" HorizontalAlignment="Left" Margin="280,10,0,15" 
                      VerticalAlignment="Top" Width="75" Click="ButtonUpdateEstate_Click"/>
             <Button  x:Name="ButtonCancel" Content="Отмена" Margin="380,-35,0,0" VerticalAlignment="Top" 
                      HorizontalAlignment="Left" Width="75" Click="ButtonCancel_Click"/>
-
         </StackPanel>
 
     </Grid>

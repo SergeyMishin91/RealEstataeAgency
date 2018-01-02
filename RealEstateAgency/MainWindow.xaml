@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RealEstateAgency"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000"
+        Title="Агентство недвижимости" Height="600" Width="1000"
         WindowStartupLocation="CenterScreen">
     <DockPanel>
         <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" Background="White" BorderBrush="Black">
@@ -17,6 +17,9 @@
                 <MenuItem Header="_Недвижимость" Click="Estates_Click"/>
                 <MenuItem Header="_Клиенты" Click="Clients_Click"/>
                 <MenuItem Header="_Договоры" Click="Treaties_Click"/>
+                <MenuItem Header="_График">
+                    <MenuItem Header="Покупатели/Продавцы" Click="MenuItem_Click"/>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Изменить">
                 <MenuItem Header="_Недвижимость">
@@ -29,15 +32,16 @@
                     <MenuItem Header="Добавить" Click="addContractOfSale_Click"/>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="_Настройки">
-
+            <MenuItem Header="XML">
+                <MenuItem Header="Запись в XML (покупатели)" Click="WriteToXML_Click"/>
+                <MenuItem Header="Чтение из XML (покупатели)" Click="ReadFromXML_Click"/>
             </MenuItem>
             <MenuItem Header="_О программе" Click="About_Click">
 
             </MenuItem>
         </Menu>
 
-        <TabControl Name="allOptionsTC" HorizontalAlignment="Left" VerticalAlignment="Top" Height="520" Width="970">
+        <TabControl Name="allOptionsTC" DockPanel.Dock="Top" Height="520" >
             <TabItem Header="Недвижимость" Name="TabItemEstates">
                 <Grid DockPanel.Dock="Left" Background="AliceBlue">
                     <Grid.RowDefinitions>
@@ -46,17 +50,13 @@
                         <RowDefinition Height="179*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="353*"/>
-                        <ColumnDefinition Width="639*"/>
+                        <ColumnDefinition Width="355*"/>
+                        <ColumnDefinition Width="609*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Назначение объекта недвижимости" Margin="0,5,140,10" Grid.Row="0" Grid.Column="0"/>
-                    <ComboBox Margin="220,5,1,10" Grid.Row="0" >
-                        <ComboBoxItem Content="офис"/>
-                        <ComboBoxItem Content="склад"/>
-                        <ComboBoxItem Content="производство/цех"/>
-                        <ComboBoxItem Content="все объекты"/>
-                    </ComboBox>
-                    <Label Name="estateDescription" Grid.Row="1" Grid.Column="1" Margin="10,1,20,107" Grid.RowSpan="2"/>
+                    <TextBlock Name="estateDescription" Grid.Row="1" Grid.Column="1" Margin="10,1,20,107"
+                               Grid.RowSpan="2" TextWrapping="Wrap">
+                         
+                    </TextBlock>
 
 
                     <ListView Name="estateSense" HorizontalAlignment="Left" Height="256" Margin="10,1,0,0" 
@@ -69,7 +69,7 @@
                                     <GridViewColumn Header="Площадь" 
                                         DisplayMemberBinding="{Binding EstateSpace}" />
                                     <GridViewColumn Header="Цена (бел.р.)" 
-                                        DisplayMemberBinding= "{Binding EstateCostOfSale}" />
+                                        DisplayMemberBinding= "{Binding EstateCostOfSale}"/>
                                 </GridView.Columns>
                             </GridView>
                         </ListView.View>
@@ -77,19 +77,21 @@
 
 
                     <Label Content="Сортировка объектов" Margin="10,10,200,130" Grid.Row="2" Grid.Column="0" />
-                    <ComboBox Margin="160,10,1,140" Grid.Row="2" >
-                        <ComboBoxItem Content="по цене"/>
-                        <ComboBoxItem Content="по году постройки"/>
-                        <ComboBoxItem Content="по площади"/>
-                        <ComboBoxItem Content="без сортировки"/>
+                    <ComboBox Margin="160,10,1,140" Grid.Row="2" Name="Sort">
+                        <ComboBoxItem Name="SortCost" Content="по цене" Selected="SortCost_Selected"/>
+                        <ComboBoxItem Name="SortYear" Content="по году постройки" Selected="SortYear_Selected"/>
+                        <ComboBoxItem Name="SortArea" Content="по площади" Selected="SortArea_Selected"/>
+                        <ComboBoxItem Name="SortOnSale" Content="продаются" Selected="SortOnSale_Selected"/>
+                        <ComboBoxItem Name="SortSaled" Content="проданные" Selected="SortSaled_Selected"/>
+                        <ComboBoxItem Name="SortWithout" Content="без сортировки" Selected="SortWithout_Selected"/>
                     </ComboBox>
 
                     <Label Content="Город:" Margin="10,60,200,90" Grid.Row="2" Grid.Column="0" />
-                    <TextBox Margin="160,60,1,90" Grid.Row="3" ></TextBox>
+                    <TextBox Margin="160,60,1,90" Grid.Row="2" Name="SortCity" SelectionChanged="SortCity_SelectionChanged"></TextBox>
 
-                    <Button Name="addEstate" Content="Добавить" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="281,130,254,19" Click="addEstate_Click"/>
-                    <Button Name="changeEstate" Content="Изменить" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="399,130,136,19" Click="changeEstate_Click"/>
-                    <Button Name="deleteEstate" Content="Удалить" Grid.Row="2" Grid.Column="1" Width="100" Height="30" Margin="515,130,20,19" Click="deleteEstate_Click"/>
+                    <Button Name="addEstate" Content="Добавить" Grid.Row="2" Grid.Column="1" Margin="281,130,236,16" Click="addEstate_Click"/>
+                    <Button Name="changeEstate" Content="Изменить" Grid.Row="2" Grid.Column="1" Margin="399,130,118,16" Click="changeEstate_Click"/>
+                    <Button Name="deleteEstate" Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="515,130,2,16" Click="deleteEstate_Click"/>
 
                 </Grid>
             </TabItem>
@@ -134,6 +136,7 @@
                     <Button Name="changeBuyer" Content="Изменить" Grid.Row="2" Grid.Column="1" Margin="234,130,144,14" Click="changeBuyer_Click"/>
                     <Button Name="deleteBuyer" Content="Удалить" Grid.Row="2" Grid.Column="1" Margin="311,130,62,14" Click="deleteBuyer_Click"/>
                     <Button x:Name="changeOwner" Content="Изменить" Grid.Row="2" Margin="27,130,431,14" Click="changeOwner_Click"/>
+                    <Button x:Name="deleteOwner" Content="Удалить" Grid.Row="2" Margin="112,130,346,14" Click="deleteOwner_Click"/>
 
                 </Grid>
 
@@ -144,8 +147,8 @@
                     <ListView.ContextMenu>
                         <ContextMenu>
                             <MenuItem Name="addContractOfSale" Header="Добавить договор" Click="addContractOfSale_Click"/>
-                            <MenuItem Name="changeContractOfSale" Header="Изменить договор"/>
-                            <MenuItem Name="deleteContractOfSale" Header="Удалить договор"/>
+                            <MenuItem Name="changeContractOfSale" Header="Изменить договор" Click="changeContractOfSale_Click"/>
+                            <MenuItem Name="deleteContractOfSale" Header="Удалить договор" Click="deleteContractOfSale_Click"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                     <ListView.View>
@@ -154,7 +157,7 @@
                                 <GridViewColumn Header="Номер договора" Width="100"
                                         DisplayMemberBinding="{Binding ContractOfSaleNumber}" />
                                 <GridViewColumn Header="Дата заключения" Width="100"
-                                        DisplayMemberBinding="{Binding ContractOfSaleDate}" />
+                                        DisplayMemberBinding="{Binding ContractOfSaleDate, StringFormat=\{0:d\}}" />
                                 <GridViewColumn Header="Покупатель" Width="100"
                                         DisplayMemberBinding="{Binding ContractOfSaleBuyer}" />
                                 <GridViewColumn Header="Продавец" Width="100"
@@ -170,11 +173,11 @@
             </TabItem>
         </TabControl>
 
-        <!--<StatusBar DockPanel.Dock="Bottom" Background="Beige">
+        <StatusBar Background="Beige">
             <StatusBarItem>
                 <TextBlock Name="statBarText" Text="Ready"/>
             </StatusBarItem>
-        </StatusBar>-->
+        </StatusBar>
 
     </DockPanel>
 </Window>

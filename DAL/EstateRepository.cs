@@ -94,8 +94,8 @@ namespace DAL
                                "@EstateState, @EstateOwner, @EstateCostOfSale, @EstateDescription)", connection))
                 { 
                   
-                    foreach (Estate estates in _estatesObsColl)
-                    {
+                    //foreach (Estate estates in _estatesObsColl)
+                    //{
                         insertCommand.Parameters.Clear();
 
                         insertCommand.Parameters.AddWithValue("@EstateID", typeof(string)).Value = estate.EstateID;
@@ -111,7 +111,7 @@ namespace DAL
                         insertCommand.Parameters.AddWithValue("@EstateOwner", typeof(string)).Value = estate.EstateOwner;
                         insertCommand.Parameters.AddWithValue("@EstateCostOfSale", typeof(string)).Value = estate.EstateCostOfSale;
                         insertCommand.Parameters.AddWithValue("@EstateDescription", typeof(string)).Value = estate.EstateDescription;
-                    }
+                    //}
                     connection.Open();
                     insertCommand.ExecuteNonQuery();
                     connection.Close();

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Model
 {
-    public class Estate : INotifyPropertyChanged
+    public class Estate : INotifyPropertyChanged, IDataErrorInfo
     {
         #region Estate fields
         private int _estateID;
@@ -19,6 +19,10 @@ namespace Model
         private string _estateOwner;
         private double _estateCostOfSale;
         private string _estateDescription;
+
+
+        private string _error = null;
+
         #endregion
 
         #region Estate properties
@@ -171,5 +175,70 @@ namespace Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        #region EstateValidation
+        public string this[string columnName]
+        {
+            get
+            {
+                switch (columnName)
+                {
+                    case nameof(EstateFunction):
+                        _error = ValidateStringValue(EstateFunction);
+                        break;
+                    case nameof(EstateName):
+                        _error = ValidateStringValue(EstateName);
+                        break;
+                    case nameof(EstateInventoryNumber):
+                        _error = ValidateStringValue(EstateInventoryNumber);
+                        break;
+                    case nameof(EstateSpace):
+                        _error = ValidationEstateSpace(EstateSpace);
+                        break;
+                    case nameof(EstateAdress):
+                        _error = ValidateStringValue(EstateAdress);
+                        break;
+                    case nameof(EstateYear):
+                        _error = ValidationEstateYear(EstateYear);
+                        break;
+                    case nameof(EstateWall):
+                        _error = ValidateStringValue(EstateWall);
+                        break;
+                    case nameof(EstateOwner):
+                        _error = ValidateStringValue(EstateOwner);
+                        break;
+                    case nameof(EstateCostOfSale):
+                        break;
+                    case nameof(EstateDescription):
+                        break;
+                }
+
+                return _error;
+            }
+        }
+
+        private string ValidationEstateSpace(double estateSpace)
+        {
+            if (estateSpace <= 0)
+                return "Недопустимое значение";
+            return null;
+        }
+
+        private string ValidationEstateYear(int year)
+        {
+            if (year < 1800 || year > 2017)
+                return "Недопустимое значение";
+            return null;
+        }
+
+        private string ValidateStringValue(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+                return "Строка не может быть пустой";
+            return null;
+        }
+
+        public string Error { get { return _error; } }
+        #endregion
     }
 }

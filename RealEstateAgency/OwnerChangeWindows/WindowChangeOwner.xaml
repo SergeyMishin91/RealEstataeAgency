@@ -3,11 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RealEstateAgency.OwnerChangeWindows"
+        xmlns:local="clr-namespace:Model;assembly=Model"
         mc:Ignorable="d"
         Title="Изменение данных" Height="350" Width="350"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+
+    <Window.Resources>
+        <local:Owner x:Key="DataContext"/>
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource DataContext}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -28,14 +33,28 @@
         <Label Grid.Row="3" x:Name="LabelChangeOwnerPhone" Content="Телефон" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107" Height="26"/>
 
         <TextBox Grid.Column="1" Name="TextBoxChangeOwnerName" HorizontalAlignment="Left" Height="26" 
-                 Margin="35,5,0,0" VerticalAlignment="Top" Width="160"/>
+                 Margin="35,5,0,0" VerticalAlignment="Top" Width="160"
+                 Text="{Binding OwnerName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="35,30,10,10" FontSize="10"
+            Content="{Binding ElementName=TextBoxChangeOwnerName, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+        
         <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxChangeOwnerAdress" HorizontalAlignment="Left" Height="26" 
-                 Margin="35,5,0,0" VerticalAlignment="Top" Width="160"/>
+                 Margin="35,5,0,0" VerticalAlignment="Top" Width="160"
+                 Text="{Binding OwnerAdress, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="35,30,10,10" FontSize="10"
+            Content="{Binding ElementName=TextBoxChangeOwnerAdress, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="1" />
+        
         <TextBox Grid.Row="2" Grid.Column="1" Name="TextBoxChangeOwnerUNP" HorizontalAlignment="Left" Height="26" 
-                  Margin="35,5,0,0" VerticalAlignment="Top" Width="160" />
+                  Margin="35,5,0,0" VerticalAlignment="Top" Width="160" 
+                 Text="{Binding OwnerUNP, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="35,30,10,10" FontSize="10"
+            Content="{Binding ElementName=TextBoxChangeOwnerUNP, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="2" />
+        
         <TextBox Grid.Row="3" Grid.Column="1" Name="TextBoxChangeOwnerPhone" HorizontalAlignment="Left" Height="26"
-                   Margin="35,5,0,0" VerticalAlignment="Top" Width="160"/>
-
+                   Margin="35,5,0,0" VerticalAlignment="Top" Width="160"
+                 Text="{Binding OwnerPhone, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="35,30,10,10" FontSize="10"
+            Content="{Binding ElementName=TextBoxChangeOwnerPhone, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="3" />
 
         <StackPanel  Grid.Row="5" Grid.ColumnSpan="2" Margin="0,3,0,0">
             <Button  x:Name="ButtonChangeBuyer" Content="Сохранить" HorizontalAlignment="Left" Margin="160,10,0,15" 

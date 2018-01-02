@@ -3,10 +3,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RealEstateAgency.COSChangeWindows"
+        xmlns:local="clr-namespace:Model;assembly=Model"
         mc:Ignorable="d"
-        Title="WindowChangeContractOfSale" Height="300" Width="300">
+        Title="WindowChangeContractOfSale" Height="420" Width="350"
+        WindowStartupLocation="CenterScreen">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="LabelUpdateCOSNumber" Content="Номер договора" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Grid.Row="1" x:Name="LabelUpdateCOSDate" Content="Дата" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Grid.Row="2" x:Name="LabelUpdateCOSOwner" Content="Продавец" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Grid.Row="3" x:Name="LabelUpdateCOSBuyer" Content="Покупатель" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Grid.Row="4" x:Name="LabelUpdateCOSCost" Content="Цена" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Grid.Row="5" x:Name="LabelUpdateCOSEstate" Content="Инвентарный №" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="107"/>
+
+        <TextBox Grid.Column="1" Name="TextBoxUpdateCOSNumber" HorizontalAlignment="Left" 
+                 Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
+                 Text="{Binding ContractOfSaleNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=TextBoxUpdateCOSNumber, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
         
+        <DatePicker Grid.Row="1" Grid.Column="1" Name="DPUpdateCOSDate" HorizontalAlignment="Left" Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"/>
+        
+        <ComboBox Grid.Row="2" Grid.Column="1" Name="ComboBoxUpdateCOSOwner" HorizontalAlignment="Left" Height="26" 
+                  Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
+                  Loaded="ComboBoxUpdateCOSOwner_Loaded"
+                  Text="{Binding ContractOfSaleOwner, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxUpdateCOSOwner, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="2"/>
+
+        <ComboBox Grid.Row="3" IsEditable="True" Grid.Column="1" Name="ComboBoxUpdateCOSBuyer" HorizontalAlignment="Left" 
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
+                  Loaded="ComboBoxUpdateCOSBuyer_Loaded"
+                  Text="{Binding ContractOfSaleBuyer, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxUpdateCOSBuyer, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="3"/>
+        
+        <TextBox Grid.Row="4" Grid.Column="1" Name="TextBoxUpdateCOSCost" Height="26" Margin="5,5,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="160"
+                 Text="{Binding ContractOfSaleCost, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=TextBoxUpdateCOSCost, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="4"/>
+        
+        <ComboBox Grid.Row="5" Grid.Column="1" Name="ComboBoxUpdateCOSEstateInventoryNumber" HorizontalAlignment="Left" 
+                  Height="26" Margin="5,5,0,0" VerticalAlignment="Top" Width="160"
+                  Loaded="ComboBoxUpdateCOSEstateInventoryNumber_Loaded"
+                  Text="{Binding ContractOfSaleEstateInventoryNumber, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label FontWeight="Bold" Foreground="Red"  Grid.Column="1" Margin="5,30,10,0" FontSize="11"
+            Content="{Binding ElementName=ComboBoxUpdateCOSEstateInventoryNumber, Path=(Validation.Errors).CurrentItem.ErrorContent}" Grid.Row="5"/>
+
+        <StackPanel  Grid.Row="12" Grid.ColumnSpan="2" Margin="0,0,10,0">
+            <Button  x:Name="ButtonUpdateCOS" Content="Сохранить" HorizontalAlignment="Left" Margin="110,10,0,15" 
+                     VerticalAlignment="Top" Width="75" Click="ButtonUpdateCOS_Click"/>
+            <Button  x:Name="ButtonCancel" Content="Отмена" Margin="205,-35,0,0" VerticalAlignment="Top" Grid.Column="1" 
+                     HorizontalAlignment="Left" Width="75" Click="ButtonCancel_Click"/>
+        </StackPanel>
+
+
     </Grid>
 </Window>

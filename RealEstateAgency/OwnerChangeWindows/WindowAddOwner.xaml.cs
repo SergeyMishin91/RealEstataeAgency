@@ -14,43 +14,59 @@ namespace RealEstateAgency.OwnerChangeWindows
     /// </summary>
     public partial class WindowAddOwner : Window
     {
+        Owner _newOwner = new Owner();
+        private string ownerName;
+
         public WindowAddOwner()
         {
             InitializeComponent();
+            this.DataContext = _newOwner;
         }
 
         public WindowAddOwner(string ownerName)
         {
             InitializeComponent();
-            this.ownerName = ownerName;
+            this.DataContext = ownerName;
         }
 
         private IOwnerRepository ownerRepository = new OwnerRepository();
-        Owner _newOwner = new Owner();
-        private string ownerName;
+        
+        
 
         private void ButtonAddOwner_Click(object sender, RoutedEventArgs e)
         {
-            int _idCounter = 1;
-            foreach (Owner owner in ownerRepository.GetAll())
+            try
             {
-                _idCounter++;
-            }
+                if (!string.IsNullOrWhiteSpace(_newOwner.Error))
+                    return;
 
-            _newOwner.OwnerID = _idCounter++;
-            if (ownerName != null)
+                int _idCounter = 1;
+                foreach (Owner owner in ownerRepository.GetAll())
+                {
+                    _idCounter++;
+                }
+
+                _newOwner.OwnerID = _idCounter++;
+                if (ownerName != null)
+                {
+                    _newOwner.OwnerName = ownerName;
+                }
+                else
+                    _newOwner.OwnerName = TextBoxAddOwnerName.Text;
+
+                _newOwner.OwnerAdress = TextBoxAddOwnerAdress.Text;
+                _newOwner.OwnerUNP = Int32.Parse(TextBoxAddOwnerUNP.Text);
+                _newOwner.OwnerPhone = TextBoxAddOwnerPhone.Text;
+
+                ownerRepository.AddOwner(_newOwner);
+                MessageBox.Show("Данные добавлены.");
+                this.Close();
+            }
+            catch (Exception ex)
             {
-                _newOwner.OwnerName = ownerName;
+                MessageBox.Show(ex.Message, "Ошибка");
             }
-            else    
-                _newOwner.OwnerName = TextBoxAddOwnerName.Text;
-            _newOwner.OwnerAdress = TextBoxAddOwnerAdress.Text;
-            _newOwner.OwnerUNP = Int32.Parse(TextBoxAddOwnerUNP.Text);
-            _newOwner.OwnerPhone = TextBoxAddOwnerPhone.Text;
-
-            ownerRepository.AddOwner(_newOwner);
-            MessageBox.Show("Данные добавлены.");
-            this.Close();
+            
         }
 
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
